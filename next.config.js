@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  webpack: function (config, options) {
+    config.experiments = { asyncWebAssembly: true, layers: true };
+    config.resolve.fallback = { fs: false };
+    return config;
+  },
 }
 
 module.exports = nextConfig
