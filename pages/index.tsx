@@ -1,23 +1,32 @@
-import { 
+import {
   Box, Heading,
   Button, ButtonGroup,
-  Code 
+  Code
 } from '@chakra-ui/react'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Mesh from "@martifylabs/mesh";
 import Head from 'next/head'
 import Image from 'next/image'
 
+import ConnectWallet from '../components/wallet/connectWallet';
+
 const Home: NextPage = () => {
 
+  const [walletConnected, setWalletConnected] = useState<null | string>(null);
   const [assets, setAssets] = useState<null | any>(null);
 
-  async function connectWallet(walletName: string) {
-    let connected = await Mesh.wallet.enable({ walletName: walletName });
-    const _assets = await Mesh.wallet.getAssets({});
-    setAssets(_assets);
-  }
+  useEffect(() => {
+    const fetchAssets = async () => {
+      const _assets = await Mesh.wallet.getAssets({});
+      setAssets(_assets);
+    }
+
+    if(walletConnected) {
+      fetchAssets();
+    }
+
+  }, [walletConnected])
 
   return (
     <Box>
@@ -25,9 +34,10 @@ const Home: NextPage = () => {
         Hello PPBL
       </Heading>
       <Box m='5' p='5' bg='#435689' color='#ffffff'>
-        <Button colorScheme='red' onClick={() => connectWallet("ccvault")}>
-          Connect Wallet
-        </Button>
+        <ConnectWallet
+          walletConnected={walletConnected}
+          setWalletConnected={setWalletConnected}
+        />
         <pre>
           <code className="language-js">{JSON.stringify(assets, null, 2)}</code>
         </pre>

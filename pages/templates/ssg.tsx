@@ -24,7 +24,7 @@ export async function getStaticProps() {
     const { data } = await client.query({
         query: gql`
             query AddressFromUtxo {
-                transactions(where: { hash: { _eq: "ac90e28c7f3a10e6c24641fbe0d74c02bcd00008a350abf2a27f15d2f5d4a8e0" } }) {
+                transactions(where: { hash: { _eq: "418b694962a0d32d294ad23d8d7dd421e2c7985d9c1129ceaf9afa5064449090" } }) {
                     outputs {
                         address
                     }
@@ -38,5 +38,3 @@ export async function getStaticProps() {
         },
     };
 }
-
-
