@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@chakra-ui/react": "^2.2.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@martifylabs/mesh": "^0.0.3-beta.16",
     "framer-motion": "^6",
+    "graphql": "^16.5.0",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
