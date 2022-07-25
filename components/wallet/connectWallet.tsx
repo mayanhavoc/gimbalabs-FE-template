@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Mesh from "@martifylabs/mesh";
 import WalletButton from "../walletButton";
 import Image from "next/image";
+import { Box, Heading } from "@chakra-ui/react";
 
 // Thank you MartifyLabs for this code!
 // TODO: Get images working :)
@@ -44,19 +45,23 @@ export default function ConnectWallet({ walletConnected, setWalletConnected }) {
 
     return (
         <>
-            <h2>Connect available wallets</h2>
-            {availableWallets
-                ? availableWallets.length == 0
-                    ? "No wallets found"
-                    : availableWallets.map((walletName, i) => (
-                        <WalletButton
-                            key={walletName}
-                            onClick={() => connectWallet(walletName)}
-                        >
-                            Connect with {WALLETS[walletName].name}
-                        </WalletButton>
-                    ))
-                : ""}
+            <Box w='50%' mb='5' p='3' bg='white' color='black'>
+                <Heading size='md' py='2'>
+                    Connect available wallets
+                </Heading>
+                {availableWallets
+                    ? availableWallets.length == 0
+                        ? "No wallets found"
+                        : availableWallets.map((walletName, i) => (
+                            <WalletButton
+                                key={walletName}
+                                onClick={() => connectWallet(walletName)}
+                            >
+                                Connect with {WALLETS[walletName].name}
+                            </WalletButton>
+                        ))
+                    : ""}
+            </Box>
         </>
     );
 }

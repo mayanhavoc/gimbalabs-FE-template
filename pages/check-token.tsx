@@ -44,7 +44,10 @@ const CheckToken: NextPage = () => {
   return (
     <Box>
       <Heading>
-        Hello PPBL
+        Task 2: Do you have the PPBLSummer2022 Token?
+      </Heading>
+      <Heading size='md' py='3'>
+        Note: this example is built for a Cardano Testnet token, so make sure that your wallet is connected to Testnet.
       </Heading>
       <Box m='5' p='5' bg='#435689' color='#ffffff'>
         <ConnectWallet

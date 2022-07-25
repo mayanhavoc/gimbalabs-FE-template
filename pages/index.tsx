@@ -1,7 +1,5 @@
 import {
-  Box, Heading,
-  Button, ButtonGroup,
-  Code
+  Box, Heading, Text
 } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
@@ -14,16 +12,16 @@ import ConnectWallet from '../components/wallet/connectWallet';
 const Home: NextPage = () => {
 
   const [walletConnected, setWalletConnected] = useState<null | string>(null);
-  const [assets, setAssets] = useState<null | any>(null);
+  const [connectedAddress, setConnectAddress] = useState<null | string>(null);
 
   useEffect(() => {
-    const fetchAssets = async () => {
-      const _assets = await Mesh.wallet.getAssets({});
-      setAssets(_assets);
+    const fetchAddress = async () => {
+      const _address = await Mesh.wallet.getWalletAddress();
+      setConnectAddress(_address);
     }
 
     if(walletConnected) {
-      fetchAssets();
+      fetchAddress();
     }
 
   }, [walletConnected])
@@ -31,16 +29,18 @@ const Home: NextPage = () => {
   return (
     <Box>
       <Heading>
-        Hello PPBL
+        Task 1: Make sure that you can connect your wallet to this dapp
       </Heading>
       <Box m='5' p='5' bg='#435689' color='#ffffff'>
         <ConnectWallet
           walletConnected={walletConnected}
           setWalletConnected={setWalletConnected}
         />
-        <pre>
-          <code className="language-js">{JSON.stringify(assets, null, 2)}</code>
-        </pre>
+        {connectedAddress ?
+          (<Text fontSize='xl'>Congratulations! You are connected to {walletConnected} wallet at address: {connectedAddress}</Text>)
+        :
+          (<Text fontSize='xl'>No wallet is connected yet. Try clicking on the button above.</Text>)
+        }
       </Box>
     </Box>
   )

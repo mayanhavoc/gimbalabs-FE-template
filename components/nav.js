@@ -5,13 +5,13 @@ export default function Nav() {
   return (
       <Flex direction="row" w="100%" p="5" bg="#dddddd">
         <Spacer />
-        <Link href="/">Home</Link>
+        <Link href="/">(1) Home: Connect Wallet</Link>
         <Spacer />
-        <Link href="/check-token">Check for PPBL Token</Link>
+        <Link href="/check-token">(2) Check for PPBL Token</Link>
         <Spacer />
-        <Link href="/token-holders">List of Token Holders</Link>
+        <Link href="/token-holders">(3) List of PPBL Token Holders</Link>
         <Spacer />
-        <Link href="/templates">NextJS GraphQL Templates</Link>
+        <Link href="/metadata-example">(4) Example Metadata Query</Link>
         <Spacer />
       </Flex>
   )

@@ -1,16 +1,23 @@
 import type { AppProps } from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Box } from '@chakra-ui/react'
+import { ApolloProvider } from '@apollo/client'
+import client from '../apollo-client'
+
 import Nav from '../components/nav'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <Nav />
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <ApolloProvider client={client}>
+      <ChakraProvider>
+        <Nav />
+        <Box w='50%' mx='auto' p='5'>
+          <Component {...pageProps} />
+        </Box>
+      </ChakraProvider>
+    </ApolloProvider>
   )
-  
+
 }
 
 export default MyApp
