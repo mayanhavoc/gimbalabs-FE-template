@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         {connectedAddress ?
           (
             <Box w='80%' mx='auto' my='5' p='5' bg='green.200' color='black'>
-              <Text fontSize='xl'>Congratulations! You are connected to {walletConnected} wallet at address: {connectedAddress}</Text>
+              <Text fontSize='xl'>Congratulations! You are connected to {walletConnected} wallet on NETWORK at address: {connectedAddress}</Text>
             </Box>
           ) : (
             <Box w='40%' mx='auto' my='5' p='5' bg='red.200' color='black'>
