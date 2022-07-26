@@ -4,7 +4,7 @@ const WalletButton = (props: any) => {
 
     return (
       <Button
-        colorScheme='red'
+        colorScheme='teal'
         onClick={props.onClick}
         disabled={props.disabled}
       >

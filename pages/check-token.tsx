@@ -1,5 +1,5 @@
 import {
-  Box, Heading,
+  Box, Heading, Text,
   Button, ButtonGroup,
   Code
 } from '@chakra-ui/react'
@@ -44,21 +44,23 @@ const CheckToken: NextPage = () => {
   return (
     <Box>
       <Heading>
-        Task 2: Do you have the PPBLSummer2022 Token?
+        Task #2:
       </Heading>
-      <Heading size='md' py='3'>
-        Note: this example is built for a Cardano Testnet token, so make sure that your wallet is connected to Testnet.
+      <Heading size='lg' pt='3'>
+        Do you have the PPBLSummer2022 Token?
       </Heading>
       <Box m='5' p='5' bg='#435689' color='#ffffff'>
         <ConnectWallet
           walletConnected={walletConnected}
           setWalletConnected={setWalletConnected}
         />
-        <Heading>
-
-          {numberPPBLTokens > 0 ? "You have the token!" : "You do not have the token."}
-        </Heading>
+        <Text>
+          {numberPPBLTokens > 0 ? "You have the PPBLSummer2022 token!" : "You do not have the PPBLSummer2022 token. Make sure to complete Assignment 100.1 in the Plutus PBL course."}
+        </Text>
       </Box>
+      <Heading size='md' py='3'>
+        Note: this example is built for a Cardano Testnet token, so make sure that your wallet is connected to Testnet.
+      </Heading>
     </Box>
   )
 }

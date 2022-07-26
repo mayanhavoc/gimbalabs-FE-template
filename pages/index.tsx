@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       setConnectAddress(_address);
     }
 
-    if(walletConnected) {
+    if (walletConnected) {
       fetchAddress();
     }
 
@@ -29,17 +29,26 @@ const Home: NextPage = () => {
   return (
     <Box>
       <Heading>
-        Task 1: Make sure that you can connect your wallet to this dapp
+        Task #1:
       </Heading>
-      <Box m='5' p='5' bg='#435689' color='#ffffff'>
+      <Heading size='lg' pt='3'>
+        Make sure that you can connect your wallet to this dapp
+      </Heading>
+      <Box m='5' p='5' bg='teal.900' color='white'>
         <ConnectWallet
           walletConnected={walletConnected}
           setWalletConnected={setWalletConnected}
         />
         {connectedAddress ?
-          (<Text fontSize='xl'>Congratulations! You are connected to {walletConnected} wallet at address: {connectedAddress}</Text>)
-        :
-          (<Text fontSize='xl'>No wallet is connected yet. Try clicking on the button above.</Text>)
+          (
+            <Box w='80%' mx='auto' my='5' p='5' bg='green.200' color='black'>
+              <Text fontSize='xl'>Congratulations! You are connected to {walletConnected} wallet at address: {connectedAddress}</Text>
+            </Box>
+          ) : (
+            <Box w='40%' mx='auto' my='5' p='5' bg='red.200' color='black'>
+              <Text fontSize='xl'>No wallet is connected yet. Try clicking on the button above.</Text>
+            </Box>
+          )
         }
       </Box>
     </Box>

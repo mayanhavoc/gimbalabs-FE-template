@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Mesh from "@martifylabs/mesh";
 import WalletButton from "../walletButton";
 import Image from "next/image";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Flex } from "@chakra-ui/react";
 
 // Thank you MartifyLabs for this code!
 // TODO: Get images working :)
@@ -45,9 +45,9 @@ export default function ConnectWallet({ walletConnected, setWalletConnected }) {
 
     return (
         <>
-            <Box w='50%' mb='5' p='3' bg='white' color='black'>
+            <Flex direction='column' w='40%' mx='auto' mb='5' p='3' bg='orange.100' color='black' alignItems='center'>
                 <Heading size='md' py='2'>
-                    Connect available wallets
+                    Connect available wallet:
                 </Heading>
                 {availableWallets
                     ? availableWallets.length == 0
@@ -61,7 +61,7 @@ export default function ConnectWallet({ walletConnected, setWalletConnected }) {
                             </WalletButton>
                         ))
                     : ""}
-            </Box>
+            </Flex>
         </>
     );
 }
