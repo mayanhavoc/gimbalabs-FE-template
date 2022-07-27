@@ -87,7 +87,7 @@ export default function HoldersByTx() {
     };
 
     return (
-        <Box m="5" p="5" bg="#aacc55">
+        <Box m="5" p="5" bg="green.200">
             <Heading>Some Results</Heading>
             <Text>
                 {JSON.stringify(data)}

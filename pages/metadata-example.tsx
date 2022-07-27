@@ -20,11 +20,15 @@ const MetadataExample: NextPage = () => {
     return (
         <Box>
             <Heading>
-                Preview #2: Example Metadata Query
+                Preview #2:
             </Heading>
-
+            <Heading size='lg' pt='3'>
+                Example Metadata Query
+            </Heading>
+            <Heading size='md' pt='3'>
+                In PPBL Module 203, you will build a transaction that adds metadata to this page.
+            </Heading>
             <MetadataExampleQuery />
-
         </Box>
     )
 }

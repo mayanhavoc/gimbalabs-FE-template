@@ -20,15 +20,21 @@ const TokenHolders: NextPage = () => {
   return (
     <Box>
       <Heading>
-        Preview #1: List of Holders of PPBLCourse2022 Token on Cardano Testnet
+        Preview #1:
+      </Heading>
+      <Heading size='lg' pt='3'>
+        List of Holders of PPBLCourse2022 Token on Cardano Testnet
+      </Heading>
+      <Heading size='lg' pt='3'>
+        COMING SOON!
       </Heading>
 
-      <HoldersByAssetID />
       <HoldersByTx />
+      <HoldersByAssetID />
 
-      <Box m='5' p='5' bg='#435689' color='#ffffff'>
-        <Heading>
-          Which token is YOURS?
+      <Box m='5' p='5' bg='blue.800' color='white'>
+        <Heading py='5'>
+          Which token is YOURS? (Coming soon)
         </Heading>
         <Button colorScheme='red' onClick={() => connectWallet("ccvault")}>
           Connect Wallet to Find Out

@@ -51,15 +51,17 @@ export default function MetadataExampleQuery() {
                 This is an example response from querying key {queryThisMetadataKey} on Cardano Testnet
             </Heading>
             {data.transactions.map((tx: any | null | undefined) => (
-                <Box m='2' px='2' pt='3' pb='5' bg='white' color='black'>
+                <Box my='5' px='2' pt='3' pb='5' bg='white' color='black'>
                     <Text>Tx Hash: {tx.hash}</Text>
                     <Text>Tx Date: {tx.includedAt}</Text>
                     <Heading size='md' py='2'>Tx Metadata:</Heading>
-                    {tx.metadata.map((metadata: any) => (
-                        <Text py='1' color='green.700'>
-                            key: {JSON.stringify(metadata.key)} value: {JSON.stringify(metadata.value)}
-                        </Text>
-                    ))}
+                    <Box m='3' p='3' bg='gray.800' color='green.100'>
+                        {tx.metadata.map((metadata: any) => (
+                            <Text py='1'>
+                                key: {JSON.stringify(metadata.key)} value: {JSON.stringify(metadata.value)}
+                            </Text>
+                        ))}
+                    </Box>
                 </Box>
             ))}
         </Box>
