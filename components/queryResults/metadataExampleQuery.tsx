@@ -8,6 +8,7 @@ const QUERY = gql`
     query TransactionsWithMetadataKey($metadatakey: String!) {
         transactions(
             where: { metadata: { key: {_eq: $metadatakey} } }
+            order_by: { includedAt: desc }
         ) {
             hash
             includedAt
@@ -20,7 +21,7 @@ const QUERY = gql`
 `;
 
 export default function MetadataExampleQuery() {
-    const queryThisMetadataKey: string = "1618033988"
+    const queryThisMetadataKey: string = "1618033"
 
     const { data, loading, error } = useQuery(QUERY, {
         variables: {
@@ -47,15 +48,16 @@ export default function MetadataExampleQuery() {
                 Some Metadata Query Results
             </Heading>
             <Heading size='md' py='1'>
-                This is an example response from querying key {queryThisMetadataKey} on Cardano Mainnet
+                This is an example response from querying key {queryThisMetadataKey} on Cardano Testnet
             </Heading>
             {data.transactions.map((tx: any | null | undefined) => (
-                <Box m='2' p='2' bg='white' color='black'>
+                <Box m='2' px='2' pt='3' pb='5' bg='white' color='black'>
                     <Text>Tx Hash: {tx.hash}</Text>
                     <Text>Tx Date: {tx.includedAt}</Text>
+                    <Heading size='md' py='2'>Tx Metadata:</Heading>
                     {tx.metadata.map((metadata: any) => (
-                        <Text p='1'>
-                            The key is {JSON.stringify(metadata.key)} and the value is {JSON.stringify(metadata.value)}
+                        <Text py='1' color='green.700'>
+                            key: {JSON.stringify(metadata.key)} value: {JSON.stringify(metadata.value)}
                         </Text>
                     ))}
                 </Box>
