@@ -14,46 +14,22 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
-
-// This works, just wait for Dandelion Testnet to be up and running again.
-
-// WITH VARIABLE:
-// const QUERY = gql`
-//     query AddressesBalances($addr : [String]!){
-//         paymentAddresses(addresses: $addr) {
-//             address
-//             summary {
-//                 assetBalances {
-//                     asset {
-//                         policyId
-//                     }
-//                     quantity
-//                 }
-//             }
-//         }
-//     }
-// `;
+import { json } from "stream/consumers";
 
 
-// ANOTHER QUERY (NO VARIABLE):
 const QUERY = gql`
-    query gimbalTransactions {
-        transactions(where : { _and : [
-            { inputs : { address : {_eq: "addr1qx2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6shnc9au"}}},
-            { outputs: { tokens: { asset: { policyId : { _eq: "2b0a04a7b60132b1805b296c7fcb3b217ff14413991bf76f72663c30" }}}}}
-        ]}) {
-            hash
+    query AssetQuery($tokenPolicyId: Hash28Hex!) {
+        transactions(where : { outputs : {tokens : { asset : { policyId : { _eq : $tokenPolicyId }}}} }) {
             includedAt
             outputs {
-            address
-            value
-            tokens {
-                asset {
-                policyId
-                assetName
+                address
+                tokens {
+                    asset {
+                        policyId
+                        assetName
+                    }
+                    quantity
                 }
-                quantity
-            }
             }
         }
     }
@@ -62,16 +38,17 @@ const QUERY = gql`
 
 export default function HoldersByTx() {
     // const addresses = ["addr1qx2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6shnc9au"]
+    const policyId = "1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f9"
 
     // EXAMPLE WITH VARIABLE
-    // const { data, loading, error } = useQuery(QUERY, {
-    //     variables: {
-    //         addr: addresses
-    //     }
-    // });
+    const { data, loading, error } = useQuery(QUERY, {
+        variables: {
+            tokenPolicyId: policyId
+        }
+    });
 
     // EXAMPLE WITHOUT VARIABLE
-    const { data, loading, error } = useQuery(QUERY);
+    // const { data, loading, error } = useQuery(QUERY);
 
     if (loading) {
         return (
@@ -88,10 +65,9 @@ export default function HoldersByTx() {
 
     return (
         <Box m="5" p="5" bg="green.200">
-            <Heading>Some Results</Heading>
-            <Text>
-                {JSON.stringify(data)}
-            </Text>
+            <Heading size='2xl'>Querying Transactions with GraphQL:</Heading>
+            <Text p='2'>Made with a <a href="https://graphql-api.testnet.dandelion.link/">GraphQL query, hosted by Dandelion</a>.</Text>
+            {data.transactions.map((tx: any) => (<Box m='5' p='5' bg='purple.900' color='white'>{JSON.stringify(tx)}</Box>))}
         </Box>
     )
 }

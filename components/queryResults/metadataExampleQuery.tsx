@@ -31,7 +31,7 @@ export default function MetadataExampleQuery() {
 
     if (loading) {
         return (
-            <Heading size="lg">Loading data...</Heading>
+            <Heading p='5' size="lg">Loading data...</Heading>
         );
     };
 
@@ -52,7 +52,7 @@ export default function MetadataExampleQuery() {
             </Heading>
             {data.transactions.map((tx: any | null | undefined) => (
                 <Box my='5' px='2' pt='3' pb='5' bg='white' color='black'>
-                    <Text>Tx Hash: {tx.hash}</Text>
+                    <Text>Tx Hash: <a href={`https://testnet.cardanoscan.io/transaction/${tx.hash}`}>{tx.hash}</a></Text>
                     <Text>Tx Date: {tx.includedAt}</Text>
                     <Heading size='md' py='2'>Tx Metadata:</Heading>
                     <Box m='3' p='3' bg='gray.800' color='green.100'>

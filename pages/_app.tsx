@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <ChakraProvider>
         <Nav />
-        <Box w='50%' mx='auto' p='5'>
+        <Box w='80%' mx='auto' p='5'>
           <Component {...pageProps} />
         </Box>
       </ChakraProvider>

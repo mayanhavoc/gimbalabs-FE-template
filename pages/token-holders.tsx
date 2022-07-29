@@ -25,21 +25,13 @@ const TokenHolders: NextPage = () => {
       <Heading size='lg' pt='3'>
         List of Holders of PPBLCourse2022 Token on Cardano Testnet
       </Heading>
-      <Heading size='lg' pt='3'>
-        COMING SOON!
+      <Heading size='md' pt='3'>
+        This page will be updated frequently over the next few weeks. What do you want it to do?
       </Heading>
 
-      <HoldersByTx />
       <HoldersByAssetID />
+      <HoldersByTx />
 
-      <Box m='5' p='5' bg='blue.800' color='white'>
-        <Heading py='5'>
-          Which token is YOURS? (Coming soon)
-        </Heading>
-        <Button colorScheme='red' onClick={() => connectWallet("ccvault")}>
-          Connect Wallet to Find Out
-        </Button>
-      </Box>
     </Box>
   )
 }
