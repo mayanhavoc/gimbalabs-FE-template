@@ -12,19 +12,17 @@ yarn install
 yarn dev
 ```
 
-In a browser, go to https://localhost:3000 and connect a Testnet Wallet.
+In a browser, go to [https://localhost:3000](https://localhost:3000) and connect a Testnet Wallet.
 
 ### You'll know you are successful if:
-You can see the address of your Testnet Wallet on the homepage, with the message "Congratulations, you are connected to Cardano Testnet!"
+You can see the "Congratulations" message with your wallet address after clicking the button at [https://localhost:3000](https://localhost:3000). Try it with both Testnet and Mainnet!
 
 ---
 
-## Thinking about dapp fron ends
+## Reasoning About Web3 Dapps
 
-### At a high level, there are three sources of information we need
+### 3 sources of information:
 
 1. The user's wallet
 2. Current on-chain data
 3. Historical blockchain data
-
-There is overlap between all three
