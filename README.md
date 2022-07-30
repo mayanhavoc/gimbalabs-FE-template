@@ -1,8 +1,8 @@
 ## How to use
 
-### Prerequisites:
-- Node.js
-- yarn
+### To use this template, you need:
+- [Node.js](https://nodejs.dev/)
+- [yarn](https://yarnpkg.com/getting-started/install)
 
 ### Get Started:
 ```
