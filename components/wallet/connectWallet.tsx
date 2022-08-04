@@ -1,67 +1,34 @@
-import { useEffect, useState } from "react";
-import Mesh from "@martifylabs/mesh";
-import WalletButton from "../walletButton";
-import Image from "next/image";
-import { Box, Heading, Flex } from "@chakra-ui/react";
+import { useEffect, useState } from 'react';
+import useWallet from '../../contexts/wallet';
+import { WalletService } from '@martifylabs/mesh';
+import type { Wallet } from '@martifylabs/mesh';
 
-// Thank you MartifyLabs for this code!
-// TODO: Get images working :)
+import { Heading, Button, Text, Box } from '@chakra-ui/react';
 
-const WALLETS = {
-    nami: {
-        name: "Nami",
-        logo: "nami.svg",
-    },
-    ccvault: {
-        name: "Eternl",
-        logo: "eternl.webp",
-    },
-    gerowallet: {
-        name: "Gero",
-        logo: "gerowallet.svg",
-    },
-};
-
-export default function ConnectWallet({ walletConnected, setWalletConnected }) {
-    const [availableWallets, setAvailableWallets] = useState<string[] | null>(
-        null
-    );
+export default function ConnectWallet() {
+    const { connecting, walletNameConnected, connectWallet } = useWallet();
+    const [availableWallets, setAvailableWallets] = useState<
+        Wallet[] | undefined
+    >(undefined);
 
     useEffect(() => {
-        async function getWallets() {
-            setAvailableWallets(await Mesh.wallet.getAvailableWallets());
+        async function init() {
+            setAvailableWallets(WalletService.getInstalledWallets());
         }
-        getWallets();
+        init();
     }, []);
-
-    async function connectWallet(walletName: string) {
-        let connected = await Mesh.wallet.enable({ walletName: walletName });
-        if (connected) {
-            setWalletConnected(walletName);
-        }
-    }
-
-    // TODO: Get wallet logo images working again
 
     return (
         <>
-            <Flex direction='column' w='40%' mx='auto' mb='5' p='3' bg='orange.100' color='black' alignItems='center'>
-                <Heading size='md' py='2'>
-                    Connect available wallet:
-                </Heading>
-                {availableWallets
-                    ? availableWallets.length == 0
-                        ? "No wallets found"
-                        : availableWallets.map((walletName, i) => (
-                            <WalletButton
-                                key={walletName}
-                                onClick={() => connectWallet(walletName)}
-                            >
-                                Connect with {WALLETS[walletName].name}
-                            </WalletButton>
-                        ))
-                    : ""}
-            </Flex>
+            {availableWallets
+                ? availableWallets.length == 0
+                    ? 'No wallets found'
+                    : availableWallets.map((wallet, i) => (
+                        <Button key={i} onClick={() => connectWallet(wallet.name)} colorScheme='purple'>
+                            Connect with {wallet.name}
+                        </Button>
+                    ))
+                : ''}
         </>
     );
 }
