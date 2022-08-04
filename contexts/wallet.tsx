@@ -8,6 +8,7 @@ const WalletContext = createContext({
   walletConnected: false,
   connectWallet: async (walletName: string) => {},
   connectedAddress: '',
+  currentNetwork: '',
 });
 
 export const WalletProvider = ({ children }) => {
@@ -16,16 +17,20 @@ export const WalletProvider = ({ children }) => {
   const [connecting, setConnecting] = useState<boolean>(false);
   const [walletNameConnected, setWalletNameConnected] = useState<string>('');
   const [connectedAddress, setConnectedAddress] = useState<string>('');
+  const [currentNetwork, setCurrentNetwork] = useState<string | undefined>(undefined)
 
   const connectWallet = async (walletName: string) => {
     setConnecting(true);
     const _wallet = await WalletService.enable(walletName);
     const _address = await _wallet.getUsedAddresses();
+    const _network = await _wallet.getNetworkId();
     if (_wallet) {
       setWallet(_wallet);
       setWalletNameConnected(walletName);
       setWalletConnected(true);
-      setConnectedAddress(_address[0])
+      setConnectedAddress(_address[0]);
+      if(_network == 0) setCurrentNetwork("Testnet");
+      if(_network == 1) setCurrentNetwork("Mainnet");
     }
     setConnecting(false);
   };
@@ -38,8 +43,9 @@ export const WalletProvider = ({ children }) => {
       walletConnected,
       connectWallet,
       connectedAddress,
+      currentNetwork,
     }),
-    [wallet, walletConnected, connecting, walletNameConnected, connectedAddress]
+    [wallet, walletConnected, connecting, walletNameConnected, connectedAddress, currentNetwork]
   );
 
   return (

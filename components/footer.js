@@ -6,7 +6,7 @@ import ConnectWallet from './wallet/connectWallet';
 import { stringify } from 'querystring';
 
 export default function Footer() {
-  const { connecting, walletNameConnected, connectWallet, walletConnected, connectedAddress } = useWallet();
+  const { connecting, walletNameConnected, connectWallet, walletConnected, connectedAddress, currentNetwork } = useWallet();
   const [footerColor, setFooterColor] = useState('orange.200')
 
   useEffect(() => {
@@ -17,7 +17,11 @@ export default function Footer() {
 
   return (
       <Flex pos="fixed" bottom="0" direction="row" w="100%" p="5" bg={footerColor}>
-        <Text>Connected to: {walletNameConnected}</Text>
+        { walletConnected ? (
+          <Text>Connected to {currentNetwork} on {walletNameConnected}</Text>
+        ) : (
+          <Text>Connect a Wallet</Text>
+        )}
         <Spacer />
         {connectedAddress}
         <Spacer />
