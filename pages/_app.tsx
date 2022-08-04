@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider>
         <WalletProvider>
           <Nav />
-          <Box w='80%' mx='auto' p='5'>
+          <Box w='80%' mx='auto' p='5' mb='24'>
             <Component {...pageProps} />
           </Box>
           <Footer />

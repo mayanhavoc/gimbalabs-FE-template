@@ -3,13 +3,11 @@ import useWallet from '../../contexts/wallet';
 import { WalletService } from '@martifylabs/mesh';
 import type { Wallet } from '@martifylabs/mesh';
 
-import { Heading, Button, Text, Box } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 export default function ConnectWallet() {
     const { connecting, walletNameConnected, connectWallet } = useWallet();
-    const [availableWallets, setAvailableWallets] = useState<
-        Wallet[] | undefined
-    >(undefined);
+    const [availableWallets, setAvailableWallets] = useState<Wallet[] | undefined>(undefined);
 
     useEffect(() => {
         async function init() {

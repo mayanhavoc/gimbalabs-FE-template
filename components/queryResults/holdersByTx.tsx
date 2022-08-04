@@ -1,20 +1,8 @@
-import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import Link from 'next/link';
 
 import {
-    Flex, Center, Heading, Text, Box,
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
+    Flex, Center, Heading, Text, Box
 } from "@chakra-ui/react";
-import { json } from "stream/consumers";
 
 
 const QUERY = gql`

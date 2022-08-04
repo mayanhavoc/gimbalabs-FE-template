@@ -1,13 +1,8 @@
 import {
-    Box, Heading, Text,
-    Button, ButtonGroup,
-    Code
+    Box, Heading, Text
 } from '@chakra-ui/react'
-import { useState } from "react";
 import type { NextPage } from "next";
 import Mesh from "@martifylabs/mesh";
-import Head from 'next/head'
-import Image from 'next/image'
 import MetadataExampleQuery from '../components/queryResults/metadataExampleQuery';
 
 

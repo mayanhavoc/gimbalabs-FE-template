@@ -6,6 +6,9 @@ import type { NextPage } from "next";
 import useWallet from '../../contexts/wallet';
 
 import ConnectWallet from '../../components/wallet/connectWallet';
+import DonateButton from '../../components/transactions/donateButton';
+import DonateForm from '../../components/transactions/donateForm';
+import TransactionTemplate from '../../components/transactions/transactionTemplate';
 
 const TransactionsPage: NextPage = () => {
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
@@ -47,10 +50,9 @@ const TransactionsPage: NextPage = () => {
                 )}
             </Box>
 
-            <Heading>1. Donate 5 Button</Heading>
-            <Heading>2. Donate Any Button with input</Heading>
-            <Heading>3. For additional examples, visit the Mesh Playground, view code. What transactions can you build?</Heading>
-
+            <DonateButton />
+            <DonateForm />
+            <TransactionTemplate />
 
 
         </Box>

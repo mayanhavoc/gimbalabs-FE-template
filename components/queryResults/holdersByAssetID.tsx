@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import {
-    Box, Heading, Text,
+    Box, Heading, Text, Center, Spinner,
     Table, Thead, Tbody, Tr, Th, Td, TableContainer, TableCaption
 } from "@chakra-ui/react"
 
@@ -29,9 +28,9 @@ export default function HoldersByAssetID() {
                 Made with <a href="https://testnet.koios.rest/#get-/asset_address_list">https://testnet.koios.rest/#get-/asset_address_list</a>
             </Text>
             {isLoading ? (
-                <Text p='2'>
-                    loading...
-                </Text>
+                <Center p='10'>
+                    <Spinner />
+                </Center>
             ) : (
                 <TableContainer bg='blue.800' color='white'>
                     <Table variant='simple' fontSize='md'>
@@ -51,7 +50,6 @@ export default function HoldersByAssetID() {
                         </Tbody>
                     </Table>
                 </TableContainer>
-
             )}
         </Box>
     );

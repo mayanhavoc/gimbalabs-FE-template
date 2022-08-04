@@ -4,7 +4,6 @@ import {
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import useWallet from '../contexts/wallet';
-import ConnectWallet from '../components/wallet/connectWallet';
 
 const Home: NextPage = () => {
   const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();

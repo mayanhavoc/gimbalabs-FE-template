@@ -1,7 +1,5 @@
-import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import Image from "next/image";
-import { Box, Heading, Text } from "@chakra-ui/react"
+import { Box, Heading, Text, Center, Spinner } from "@chakra-ui/react"
 
 // WITH VARIABLE:
 const QUERY = gql`
@@ -31,7 +29,9 @@ export default function MetadataExampleQuery() {
 
     if (loading) {
         return (
-            <Heading p='5' size="lg">Loading data...</Heading>
+            <Center p='10'>
+                <Spinner size='xl' speed="1.0s"/>
+            </Center>
         );
     };
 
