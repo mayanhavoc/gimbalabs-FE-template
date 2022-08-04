@@ -34,17 +34,17 @@ const TransactionsPage: NextPage = () => {
             <Heading>
                 Example Transactions
             </Heading>
-            <Heading size='lg' pt='3'>
+            <Heading size='lg' py='3'>
                 Here are some examples.
             </Heading>
 
-            <Box p='16'>
+            <Box p='4' bg='purple.200'>
                 {(loading || connecting || connectedAddress.length === 0) ? (
                     <Center>
                         <Spinner />
                     </Center>
                 ) : (
-                    <Text p='5'>
+                    <Text>
                         Connected to {connectedAddress} with {walletNameConnected}.
                     </Text>
                 )}
