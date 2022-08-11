@@ -6,7 +6,7 @@ import {
 export default function TransactionTemplate() {
 
     return (
-        <Box w='80%' mx='auto' my='5' p='5' bg='orange.200'>
+        <Box my='5' p='5' bg='orange.200'>
             <Heading size='xl'>
                 Tx Template
             </Heading>

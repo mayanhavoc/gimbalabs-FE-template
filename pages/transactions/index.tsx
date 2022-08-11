@@ -9,6 +9,7 @@ import ConnectWallet from '../../components/wallet/connectWallet';
 import DonateButton from '../../components/transactions/donateButton';
 import DonateForm from '../../components/transactions/donateForm';
 import TransactionTemplate from '../../components/transactions/transactionTemplate';
+import QuickSendToken from '../../components/transactions/quickSendToken';
 
 const TransactionsPage: NextPage = () => {
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
@@ -52,6 +53,7 @@ const TransactionsPage: NextPage = () => {
 
             <DonateButton />
             <DonateForm />
+            <QuickSendToken />
             <TransactionTemplate />
 
 

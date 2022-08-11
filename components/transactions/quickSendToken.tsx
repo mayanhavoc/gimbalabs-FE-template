@@ -6,18 +6,16 @@ import { useFormik } from "formik";
 import useWallet from "../../contexts/wallet";
 import { TransactionService } from '@martifylabs/mesh'
 
-
-export default function DonateForm() {
-    const donationAddress = "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r"
+export default function QuickSendToken() {
+    const assetId = "1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f95050424c53756d6d657232303232"
 
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [loading, setLoading] = useState(false);
 
-
     const formik = useFormik({
         initialValues: {
-            lovelace: '',
+            address: '',
         },
         onSubmit: values => {
             alert("Success!");
@@ -25,17 +23,28 @@ export default function DonateForm() {
     });
 
     // Ask Mesh team about Error reporting
-    const handleDonate = async () => {
+    const handleSend = async () => {
         if (walletConnected) {
             setLoading(true)
             const network = await wallet.getNetworkId()
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService(wallet).sendLovelace(
-                donationAddress,
-                formik.values.lovelace
-            );
+            const tx = new TransactionService(wallet)
+                .sendLovelace(
+                    formik.values.address,
+                    "2000000"
+                )
+                .sendAssets(
+                    formik.values.address,
+                    [
+                        {
+                            unit: assetId,
+                            quantity: "1",
+                        },
+                    ]
+                );
+
             const unsignedTx = await tx.build();
             const signedTx = await wallet.signTx(unsignedTx);
             const txHash = await wallet.submitTx(signedTx);
@@ -50,13 +59,10 @@ export default function DonateForm() {
     return (
         <Box my='5' p='5' bg='orange.200'>
             <Heading size='xl'>
-                Donate Form
+                Quickly Send a PPBLSummer2022 Token
             </Heading>
-            <Text py='1'>
-                This form will send any number of available lovelace specified to: 
-            </Text>
-            <Text pb='2' fontSize="xs">
-                {donationAddress}
+            <Text py='2'>
+                This form will send one PPBLSummer2022 token to the address specified.
             </Text>
             {loading ? (
                 <Center>
@@ -64,9 +70,9 @@ export default function DonateForm() {
                 </Center>
             ) : (
                 <Box mt='2' p='5' bg='orange.100'>
-                    <FormControl my='3'>
-                        <Input mb='3' bg='white' id="lovelace" name="lovelace" onChange={formik.handleChange} value={formik.values.lovelace} />
-                        <Button colorScheme='purple' onClick={handleDonate}>Send this much lovelace</Button>
+                    <FormControl>
+                        <Input my='3' bg='white' id="address" name="address" onChange={formik.handleChange} value={formik.values.address} />
+                        <Button colorScheme='purple' onClick={handleSend}>Send to Address</Button>
                     </FormControl>
                     <Box mt='2' p='2' bg='blue.200'>
                         <Heading size='sm' py='1'>Status</Heading>
