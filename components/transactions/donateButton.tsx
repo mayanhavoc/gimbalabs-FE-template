@@ -19,7 +19,7 @@ export default function DonateButton() {
             if (network == 1) {
                 alert("this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService(wallet).sendLovelace(
+            const tx = new TransactionService({initiator: wallet}).sendLovelace(
                 "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r",
                 "5000000"
             );

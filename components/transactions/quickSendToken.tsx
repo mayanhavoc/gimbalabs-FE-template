@@ -30,7 +30,7 @@ export default function QuickSendToken() {
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService(wallet)
+            const tx = new TransactionService({initiator: wallet})
                 .sendLovelace(
                     formik.values.address,
                     "2000000"

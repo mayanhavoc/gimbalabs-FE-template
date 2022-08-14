@@ -32,7 +32,7 @@ export default function DonateForm() {
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService(wallet).sendLovelace(
+            const tx = new TransactionService({initiator: wallet}).sendLovelace(
                 donationAddress,
                 formik.values.lovelace
             );

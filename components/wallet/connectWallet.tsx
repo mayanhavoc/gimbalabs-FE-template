@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useWallet from '../../contexts/wallet';
-import { WalletService } from '@martifylabs/mesh';
+import { BrowserWallet } from '@martifylabs/mesh';
 import type { Wallet } from '@martifylabs/mesh';
 
 import { Button } from '@chakra-ui/react';
@@ -11,7 +11,7 @@ export default function ConnectWallet() {
 
     useEffect(() => {
         async function init() {
-            setAvailableWallets(WalletService.getInstalledWallets());
+            setAvailableWallets(BrowserWallet.getInstalledWallets());
         }
         init();
     }, []);
