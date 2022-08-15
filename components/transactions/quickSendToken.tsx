@@ -30,6 +30,8 @@ export default function QuickSendToken() {
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
             }
+            // This tx will produce two utxos. We can ignore sendLovelace,
+            // and/or include lovelace in sendAssets.
             const tx = new TransactionService({initiator: wallet})
                 .sendLovelace(
                     formik.values.address,
