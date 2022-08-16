@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     Box, Heading, Text, Input, FormControl, Button, Center, Spinner
 } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import useWallet from "../../contexts/wallet";
 import { TransactionService } from '@martifylabs/mesh'
+import type { UTxO } from "@martifylabs/mesh";
 
 export default function QuickSendToken() {
     const assetId = "1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f95050424c53756d6d657232303232"
 
-    const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
+    const { walletConnected, wallet } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [loading, setLoading] = useState(false);
 
@@ -29,28 +30,40 @@ export default function QuickSendToken() {
             const network = await wallet.getNetworkId()
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
+            } else {
+                try {
+                    const tx = new TransactionService({ initiator: wallet })
+                        .sendValue(
+                            formik.values.address,
+                            {
+                                output: {
+                                    amount: [
+                                        {
+                                            unit: "lovelace",
+                                            quantity: "5000000"
+                                        },
+                                        {
+                                            unit: assetId,
+                                            quantity: "1",
+                                        }
+                                    ]
+                                }
+                            },
+                        );
+                    const unsignedTx = await tx.build();
+                    const signedTx = await wallet.signTx(unsignedTx);
+                    const txHash = await wallet.submitTx(signedTx);
+                    setSuccessfulTxHash(txHash)
+                } catch (error: any) {
+                    if (error.info) {
+                        alert(error.info)
+                    }
+                    else {
+                        alert(error)
+                        console.log(error)
+                    }
+                }
             }
-            // This tx will produce two utxos. We can ignore sendLovelace,
-            // and/or include lovelace in sendAssets.
-            const tx = new TransactionService({initiator: wallet})
-                .sendLovelace(
-                    formik.values.address,
-                    "2000000"
-                )
-                .sendAssets(
-                    formik.values.address,
-                    [
-                        {
-                            unit: assetId,
-                            quantity: "1",
-                        },
-                    ]
-                );
-
-            const unsignedTx = await tx.build();
-            const signedTx = await wallet.signTx(unsignedTx);
-            const txHash = await wallet.submitTx(signedTx);
-            setSuccessfulTxHash(txHash)
             setLoading(false)
         }
         else {

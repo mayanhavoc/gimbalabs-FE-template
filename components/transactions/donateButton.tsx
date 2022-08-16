@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     Box, Heading, Text, Button, Center, Spinner
 } from "@chakra-ui/react"
@@ -6,9 +6,10 @@ import useWallet from "../../contexts/wallet";
 
 import { TransactionService } from '@martifylabs/mesh'
 
+const donationAddress = "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r"
 
 export default function DonateButton() {
-    const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
+    const { walletConnected, wallet } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -19,14 +20,25 @@ export default function DonateButton() {
             if (network == 1) {
                 alert("this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService({initiator: wallet}).sendLovelace(
-                "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r",
-                "5000000"
-            );
-            const unsignedTx = await tx.build();
-            const signedTx = await wallet.signTx(unsignedTx);
-            const txHash = await wallet.submitTx(signedTx);
-            setSuccessfulTxHash(txHash)
+            else {
+                const tx = new TransactionService({ initiator: wallet }).sendLovelace(
+                    donationAddress,
+                    "5000000"
+                );
+                try {
+                    const unsignedTx = await tx.build();
+                    const signedTx = await wallet.signTx(unsignedTx);
+                    const txHash = await wallet.submitTx(signedTx);
+                    setSuccessfulTxHash(txHash)
+                } catch (error: any) {
+                    if (error.info) {
+                        alert(error.info)
+                    }
+                    else {
+                        console.log(error)
+                    }
+                }
+            }
             setLoading(false)
         }
         else {

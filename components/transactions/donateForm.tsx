@@ -32,14 +32,30 @@ export default function DonateForm() {
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
             }
-            const tx = new TransactionService({initiator: wallet}).sendLovelace(
-                donationAddress,
-                formik.values.lovelace
-            );
-            const unsignedTx = await tx.build();
-            const signedTx = await wallet.signTx(unsignedTx);
-            const txHash = await wallet.submitTx(signedTx);
-            setSuccessfulTxHash(txHash)
+            else if (parseInt(formik.values.lovelace) < 1000000) {
+                alert("You must send at least 1 ada.")
+            }
+            else {
+                const tx = new TransactionService({ initiator: wallet }).sendLovelace(
+                    donationAddress,
+                    formik.values.lovelace
+                );
+                try {
+                    const unsignedTx = await tx.build();
+                    const signedTx = await wallet.signTx(unsignedTx);
+                    const txHash = await wallet.submitTx(signedTx);
+                    console.log("Message", txHash)
+                    setSuccessfulTxHash(txHash)
+                } catch (error: any) {
+                    if(error.info){
+                        alert(error.info)
+                    }
+                    else {
+                        console.log(error)
+                    }
+                }
+
+            }
             setLoading(false)
         }
         else {
@@ -53,7 +69,7 @@ export default function DonateForm() {
                 Donate Form
             </Heading>
             <Text py='1'>
-                This form will send any number of available lovelace specified to: 
+                This form will send any number of available lovelace specified to:
             </Text>
             <Text pb='2' fontSize="xs">
                 {donationAddress}
