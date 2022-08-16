@@ -20,8 +20,11 @@ export default function FaucetUnlockingComponent() {
 
     const [contractUtxos, setContractUtxos] = useState<UTxO[] | null>(null)
     const [faucetUtxo, setFaucetUtxo] = useState<UTxO | null>(null)
+    const [faucetBalance, setFaucetBalance] = useState<string | null>(null)
 
+    // Check against registered metadata for datum number and asset.unit
     const datum = 1618;
+    const faucetAsset = "6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c"
 
     useEffect(() => {
         const getMyUtxos = async () => {
@@ -39,6 +42,13 @@ export default function FaucetUnlockingComponent() {
             setFaucetUtxo(result[0])
         }
     }, [contractUtxos])
+
+    useEffect(() => {
+        if (faucetUtxo) {
+            const _faucetAsset = faucetUtxo.output.amount.filter(asset => asset.unit === faucetAsset)
+            setFaucetBalance(_faucetAsset[0].quantity)
+        }
+    }, [faucetUtxo])
 
     // Todo: Check against registered metadata to get quantity
     const assetsToSender: Asset[] = [
@@ -89,14 +99,13 @@ export default function FaucetUnlockingComponent() {
                             assetsToSender
                         ).sendAssets(
                             contractAddress,
-                            assetsToContract
+                            assetsToContract,
+                            { datum: datum }
                         );
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
-                    // required-signer is taken care of behind the scenes.
-                    // Martify team is experimenting with solutions that are compatible with Eternl's multi-addr
-                    // Also look for additional customizations in upcoming release.
 
+                    // required-signer is taken care of by Mesh
                     // try this without PartialSigned true to see what happens.
                     const signedTx = await wallet.signTx(unsignedTx, true);
                     // error reporting?
@@ -121,24 +130,35 @@ export default function FaucetUnlockingComponent() {
     }
 
     return (
-        <Box my='5' p='5' bg='teal.200'>
+        <Box my='5' p='5' bg='purple.900' color='white'>
             <Heading size='xl'>
                 Unlock Tokens from Faucet
             </Heading>
             <Text py='2'>
                 Result: {JSON.stringify(faucetUtxo)}
             </Text>
+            <Box my='2' p='2' bg='purple.200' color='black'>
+                Balance: {faucetBalance}
+            </Box>
             <Text py='2'>
                 Contract Address: {contractAddress}
             </Text>
-            <Button colorScheme='purple' onClick={handleUnLockTokens}>Unlock those Tokens!</Button>
+            <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock those Tokens!</Button>
             {loading ? (
                 <Center>
                     <Spinner />
                 </Center>
             ) : (
-                <Box>
-                    Some result: {successfulTxHash}
+                <Box mt='2' p='2' bg='purple.200' color='black'>
+                    {successfulTxHash ? (
+                        <Text>
+                            {successfulTxHash}
+                        </Text>
+                    ) : (
+                        <Text>
+                            Try it!
+                        </Text>
+                    )}
                 </Box>
             )}
         </Box>

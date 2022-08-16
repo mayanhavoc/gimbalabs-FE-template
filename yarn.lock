@@ -805,10 +805,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@martifylabs/mesh@^0.0.6-beta.2":
-  version "0.0.6-beta.2"
-  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.6-beta.2.tgz#2f4764a0433b5db25f03e662497322be2f48b90e"
-  integrity sha512-AXkTPQ7XHCapkXTBwf3QNPBE4w9rP+JVP4RCsy9kaFXclslaaPVPusVNYcsAXjsu/Ab9oBEqOowiQ5sSUXNewA==
+"@martifylabs/mesh@^0.0.6-beta.3":
+  version "0.0.6-beta.3"
+  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.6-beta.3.tgz#2604dde610cc8c4f50eb5de5eb56b921fd3b65a5"
+  integrity sha512-PMArBosyeUb1dOPGl+F856koLLH5m76r9tUw4JDmWMEEL7J8YncAFf0CBlNL4veQ80pqy2UPXEikW7oKUInGlA==
   dependencies:
     "@emurgo/cardano-serialization-lib-browser" "11.0.0"
     "@emurgo/cardano-serialization-lib-nodejs" "11.0.0"

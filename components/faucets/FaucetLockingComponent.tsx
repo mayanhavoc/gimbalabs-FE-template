@@ -5,19 +5,16 @@ import {
 import useWallet from "../../contexts/wallet";
 import { TransactionService } from '@martifylabs/mesh'
 import { scriptInteger } from "../../cardano/plutus/faucet-integer";
-import { scriptUnit } from "../../cardano/plutus/faucet-unit";
 
 export default function FaucetLockingComponent(props: any) {
 
     const contractAddress = scriptInteger.address;
-    // scriptInteger:
+    const faucetAsset = '6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c'
     const datum = 1618;
-    // scriptUnit:
-    // const datum = []
 
-    const assets = [
+    const lockAssets = [
         {
-            unit: '6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c',
+            unit: faucetAsset,
             quantity: '10000'
         }
     ]
@@ -37,7 +34,7 @@ export default function FaucetLockingComponent(props: any) {
                     const tx = new TransactionService({ initiator: wallet })
                         .sendAssets(
                             contractAddress,
-                            assets,
+                            lockAssets,
                             { datum: datum }
                         );
                     const unsignedTx = await tx.build();
@@ -62,21 +59,29 @@ export default function FaucetLockingComponent(props: any) {
     }
 
     return (
-        <Box my='5' p='5' bg='teal.200'>
+        <Box my='5' p='5' bg='purple.900' color='white'>
             <Heading size='xl'>
                 Lock Tokens in Faucet
             </Heading>
             <Text py='2'>
                 Deposit at Contract: {contractAddress}
             </Text>
-            <Button colorScheme='purple' onClick={handleLockTokens}>Lock those Tokens!</Button>
+            <Button my='2' colorScheme='purple' onClick={handleLockTokens}>Lock those Tokens!</Button>
             {loading ? (
                 <Center>
                     <Spinner />
                 </Center>
             ) : (
-                <Box>
-                    Some result: {successfulTxHash}
+                <Box mt='2' p='2' bg='purple.200' color='black'>
+                    {successfulTxHash ? (
+                        <Text>
+                            {successfulTxHash}
+                        </Text>
+                    ) : (
+                        <Text>
+                            Try it!
+                        </Text>
+                    )}
                 </Box>
             )}
         </Box>

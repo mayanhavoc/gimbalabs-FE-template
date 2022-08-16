@@ -13,7 +13,7 @@
     "@chakra-ui/react": "^2.2.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@martifylabs/mesh": "^0.0.6-beta.2",
+    "@martifylabs/mesh": "^0.0.6-beta.3",
     "formik": "^2.2.9",
     "framer-motion": "^6",
     "graphql": "^16.5.0",
