@@ -1,5 +1,8 @@
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 
+// TODO: Create a function that gets the balance of asset A at contract B.
+// Use it to populate the Locking component, and to prevent use if assets are held.
+
 export const getUtxoKoios = async (address: string) => {
     let _contract_utxos: UTxO[] = []
     const result = await fetch(`https://testnet.koios.rest/api/v0/address_info?_address=${address}`)
