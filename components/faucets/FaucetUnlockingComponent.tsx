@@ -7,24 +7,27 @@ import { TransactionService, BlockfrostProvider, resolveDataHash } from '@martif
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 // Use these type to check against 3rd party query
 // Review other Types
-import { scriptInteger } from "../../cardano/plutus/faucet-integer"
-import { scriptUnit } from "../../cardano/plutus/faucet-unit"
+import { tGimbal } from "../../cardano/plutus/faucet-tGimbal"
 import { getUtxoKoios } from "../../cardano/koios";
 
 export default function FaucetUnlockingComponent() {
 
-    const contractAddress = scriptInteger.address
+    const contractAddress = tGimbal.address
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [loading, setLoading] = useState(false);
 
     const [contractUtxos, setContractUtxos] = useState<UTxO[] | null>(null)
     const [faucetUtxo, setFaucetUtxo] = useState<UTxO | null>(null)
-    const [faucetBalance, setFaucetBalance] = useState<string | null>(null)
+    const [faucetBalance, setFaucetBalance] = useState<number | null>(null)
+    const [tokensBackToFaucet, setTokensBackToFaucet] = useState<number>(0)
 
-    // Check against registered metadata for datum number and asset.unit
+    // Check against registered metadata for the following:
     const datum = 1618;
-    const faucetAsset = "6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c"
+    const datumHash = resolveDataHash(datum);
+    const faucetAsset = "d66b3b8bceddca0e0cf802913dc031caa0abbdeef98cf096a3ab21667447696d62616c";
+    const faucetTokenName = "tGimbal";
+    const withdrawalAmount = 3000;
 
     useEffect(() => {
         const getMyUtxos = async () => {
@@ -37,7 +40,7 @@ export default function FaucetUnlockingComponent() {
     useEffect(() => {
         if (contractUtxos) {
             const result = contractUtxos.filter(utxo => (
-                utxo.output.dataHash == "2da1c63e7646ce8cc514113c66e9cefb79e482210ad1dadb51c2a17ab14cf114"
+                utxo.output.dataHash == datumHash
             ))
             setFaucetUtxo(result[0])
         }
@@ -46,15 +49,22 @@ export default function FaucetUnlockingComponent() {
     useEffect(() => {
         if (faucetUtxo) {
             const _faucetAsset = faucetUtxo.output.amount.filter(asset => asset.unit === faucetAsset)
-            setFaucetBalance(_faucetAsset[0].quantity)
+            const _faucetBalance = parseInt(_faucetAsset[0].quantity)
+            setFaucetBalance(_faucetBalance)
         }
     }, [faucetUtxo])
+
+    useEffect(() => {
+        if (faucetBalance){
+            setTokensBackToFaucet(faucetBalance - withdrawalAmount)
+        }
+    }, [faucetBalance])
 
     // Todo: Check against registered metadata to get quantity
     const assetsToSender: Asset[] = [
         {
-            unit: '6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c',
-            quantity: '5000'
+            unit: faucetAsset,
+            quantity: withdrawalAmount.toString()
         },
         {
             unit: '1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f95050424c53756d6d657232303232',
@@ -65,8 +75,8 @@ export default function FaucetUnlockingComponent() {
     // Todo: this quantity will also a require a dynamic query
     const assetsToContract: Asset[] = [
         {
-            unit: '6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c',
-            quantity: '5000'
+            unit: faucetAsset,
+            quantity: tokensBackToFaucet.toString()
         }
     ]
 
@@ -89,7 +99,7 @@ export default function FaucetUnlockingComponent() {
                     const tx = new TransactionService({ initiator: wallet })
                         .redeemFromScript(
                             faucetUtxo,
-                            scriptInteger.script,
+                            tGimbal.script,
                             {
                                 datum,
                                 redeemer: justAnIntegerRedeemer
@@ -101,6 +111,9 @@ export default function FaucetUnlockingComponent() {
                             contractAddress,
                             assetsToContract,
                             { datum: datum }
+                        ).sendLovelace(
+                            connectedAddress,
+                            "1500000"
                         );
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
@@ -132,10 +145,13 @@ export default function FaucetUnlockingComponent() {
     return (
         <Box my='5' p='5' bg='purple.900' color='white'>
             <Heading size='xl'>
-                Unlock Tokens from Faucet
+                Unlock {faucetTokenName} Tokens from Faucet
             </Heading>
             <Text py='2'>
                 Result: {JSON.stringify(faucetUtxo)}
+            </Text>
+            <Text py='2'>
+                Datum Hash: {datumHash}
             </Text>
             <Box my='2' p='2' bg='purple.200' color='black'>
                 Balance: {faucetBalance}
