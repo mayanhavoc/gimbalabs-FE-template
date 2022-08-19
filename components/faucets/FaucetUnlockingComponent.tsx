@@ -65,7 +65,10 @@ export default function FaucetUnlockingComponent() {
         {
             unit: faucetAsset,
             quantity: withdrawalAmount.toString()
-        },
+        }
+    ]
+
+    const accessTokenToSender: Asset[] = [
         {
             unit: '1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f95050424c53756d6d657232303232',
             quantity: '1'
@@ -108,12 +111,12 @@ export default function FaucetUnlockingComponent() {
                             connectedAddress,
                             assetsToSender
                         ).sendAssets(
+                            connectedAddress,
+                            accessTokenToSender
+                        ).sendAssets(
                             contractAddress,
                             assetsToContract,
                             { datum: datum }
-                        ).sendLovelace(
-                            connectedAddress,
-                            "1500000"
                         );
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
@@ -150,9 +153,9 @@ export default function FaucetUnlockingComponent() {
             <Text py='2'>
                 Result: {JSON.stringify(faucetUtxo)}
             </Text>
-            <Text py='2'>
+            {/* <Text py='2'>
                 Datum Hash: {datumHash}
-            </Text>
+            </Text> */}
             <Box my='2' p='2' bg='purple.200' color='black'>
                 Balance: {faucetBalance}
             </Box>
