@@ -7,12 +7,14 @@ import { TransactionService, BlockfrostProvider, resolveDataHash } from '@martif
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 // Use these type to check against 3rd party query
 // Review other Types
-import { tGimbal } from "../../cardano/plutus/faucet-tGimbal"
+import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-tgimbal"
 import { getUtxoKoios } from "../../cardano/koios";
+
+// TODO: Replace Koios with Dandelion query
 
 export default function FaucetUnlockingComponent() {
 
-    const contractAddress = tGimbal.address
+    const contractAddress = tgimbal.address
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [loading, setLoading] = useState(false);
@@ -25,8 +27,8 @@ export default function FaucetUnlockingComponent() {
     // Check against registered metadata for the following:
     const datum = 1618;
     const datumHash = resolveDataHash(datum);
-    const faucetAsset = "d66b3b8bceddca0e0cf802913dc031caa0abbdeef98cf096a3ab21667447696d62616c";
-    const faucetTokenName = "tGimbal";
+    const faucetAsset = "fb45417ab92a155da3b31a8928c873eb9fd36c62184c736f189d334c7467696d62616c";
+    const faucetTokenName = "tgimbal";
     const withdrawalAmount = 3000;
 
     useEffect(() => {

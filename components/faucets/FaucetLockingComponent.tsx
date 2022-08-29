@@ -4,12 +4,12 @@ import {
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
 import { TransactionService } from '@martifylabs/mesh'
-import { scriptInteger } from "../../cardano/plutus/faucet-integer";
+import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-tgimbal.js";
 
 export default function FaucetLockingComponent(props: any) {
 
-    const contractAddress = scriptInteger.address;
-    const faucetAsset = '6c57132fde399c9ea6e462c4214d164984891087922b6fa2472b175b7470626c5465737447696d62616c'
+    const contractAddress = tgimbal.address;
+    const faucetAsset = '748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c605050424c53756d6d657232303232'
     const datum = 1618;
 
     const lockAssets = [

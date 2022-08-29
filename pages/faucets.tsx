@@ -7,6 +7,7 @@ import useWallet from '../contexts/wallet';
 import FaucetUnlockingComponent from '../components/faucets/FaucetUnlockingComponent';
 import FaucetLockingComponent from '../components/faucets/FaucetLockingComponent';
 import FaucetMetadataRegistration from '../components/faucets/FaucetMetadataRegistration';
+import DummyUnlockingPlaceholder from '../components/faucets/DummyUnlockingPlaceholder'
 
 const Faucets: NextPage = () => {
   const { walletNameConnected, walletConnected, wallet, connectedAddress } = useWallet();
@@ -64,8 +65,7 @@ const Faucets: NextPage = () => {
         )}
       </Box>
       <FaucetLockingComponent />
-      <FaucetUnlockingComponent />
-      <FaucetMetadataRegistration />
+      <DummyUnlockingPlaceholder />
     </Box>
   )
 }
