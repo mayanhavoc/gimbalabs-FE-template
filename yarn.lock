@@ -753,15 +753,15 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@emurgo/cardano-serialization-lib-browser@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-browser/-/cardano-serialization-lib-browser-11.0.0.tgz#0692646f497703e4970d999333bae7f37003bad0"
-  integrity sha512-aJHJSUdlXGu1wfr7sETdoE6mv43jdtflW03Jwro3kFQwchLGAOUiA4LfTDOKwgrtxT6lq5fQW46YoHh14PZDyg==
+"@emurgo/cardano-serialization-lib-browser@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-browser/-/cardano-serialization-lib-browser-11.0.3.tgz#ad543387003a0dcf3d1abc060eaa43b366bfc13b"
+  integrity sha512-LlU7VPOBkJMMW0iD1H8d54rg5CtWo7YTYWlPO7f3ztgDKvS+nl+wJXamdmK8m4OfJqh1YeigabwMpQJJEZX/Pw==
 
-"@emurgo/cardano-serialization-lib-nodejs@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-nodejs/-/cardano-serialization-lib-nodejs-11.0.0.tgz#16f5945e576a7ba36f8619279daef771c3079897"
-  integrity sha512-thm7g+NT9W4Iwor0S7oTewpLoKwGTGVdVWiZsUj3GjNNp+XJQHXffsOy9JyauMHjqaQeIpDLR1QckY5VnCWzhg==
+"@emurgo/cardano-serialization-lib-nodejs@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-nodejs/-/cardano-serialization-lib-nodejs-11.0.3.tgz#bec8284cdc4819577619127b09685bf67c84ff72"
+  integrity sha512-USUKgI9HRooyMeNWUCZVSZB2aPj4LR5QaMyBbnj08n6Hnykbc7966RUx3E1CmWWiJ36OiTfXbjWwnpMj4ESqzA==
 
 "@emurgo/cip14-js@3.0.1":
   version "3.0.1"
@@ -805,17 +805,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@martifylabs/mesh@^0.0.6-beta.6":
-  version "0.0.6-beta.6"
-  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.6-beta.6.tgz#6a571589b47f926f1fbcd2db573d996ad1b7d90f"
-  integrity sha512-XZ1jTQUJzhQYxrN7YMulaTAGrzhQyMZTC5G0E75oN1840FmH0+u1taxcUT93j1Nu3jhj+LDp3LMdJt0U0XyItg==
+"@martifylabs/mesh@^0.0.7-beta.4":
+  version "0.0.7-beta.4"
+  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.7-beta.4.tgz#a1f632a19c5f5cd347a2fdf5417e6012994c3a82"
+  integrity sha512-gHTLfxIIOBzYAgCAkAC6MC0oW78u4tSG5Z2p7Wyr03OF4i9MuvLcehSujLXKV+t4P/8Lt12oPf5fS9aF1L113g==
   dependencies:
-    "@emurgo/cardano-serialization-lib-browser" "11.0.0"
-    "@emurgo/cardano-serialization-lib-nodejs" "11.0.0"
+    "@emurgo/cardano-serialization-lib-browser" "11.0.3"
+    "@emurgo/cardano-serialization-lib-nodejs" "11.0.3"
     "@emurgo/cip14-js" "3.0.1"
     axios "0.27.2"
-    bip39 "^3.0.4"
-    crypto-random-string "^5.0.0"
+    bip39 "3.0.4"
+    crypto-random-string "5.0.0"
     zod "3.17.10"
 
 "@motionone/animation@^10.12.0":
@@ -1256,7 +1256,7 @@ bech32@2.0.0:
   resolved "https://registry.yarnpkg.com/bech32/-/bech32-2.0.0.tgz#078d3686535075c8c79709f054b1b226a133b355"
   integrity sha512-LcknSilhIGatDAsY1ak2I8VtGaHNhgMSYVxFrGLXv+xLHytaKZKcaUJJUE7qmBr7h33o5YQwP55pMI0xmkpJwg==
 
-bip39@^3.0.4:
+bip39@3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/bip39/-/bip39-3.0.4.tgz#5b11fed966840b5e1b8539f0f54ab6392969b2a0"
   integrity sha512-YZKQlb752TrUWqHWj7XAwCSjYEgGAk+/Aas3V7NyjQeZYsztO8JnQUaCWhcnL4T+jL8nvB8typ2jRPzTlgugNw==
@@ -1442,7 +1442,7 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-random-string@^5.0.0:
+crypto-random-string@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-5.0.0.tgz#12b4ca8ba936c36d757b65b71a7d85a69a02c18a"
   integrity sha512-KWjTXWwxFd6a94m5CdRGW/t82Tr8DoBc9dNnPCAbFI1EBweN6v1tv8y4Y1m7ndkp/nkIBRxUxAzpaBnR2k3bcQ==

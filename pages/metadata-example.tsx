@@ -5,6 +5,19 @@ import type { NextPage } from "next";
 import Mesh from "@martifylabs/mesh";
 import MetadataExampleQuery from '../components/queryResults/metadataExampleQuery';
 
+// ----------------------------------------------------------------
+// Data:
+// contractAddress : string
+// plutusScript : string (filename)
+// policyId : string
+// tokenName : string
+// faucetQuantity: number
+// datum: number
+//
+// Task:
+// Create a form that collects these data points from PPBL student
+// and formats as metadata to be posted on Transaction.
+// ----------------------------------------------------------------
 
 const MetadataExample: NextPage = () => {
 
