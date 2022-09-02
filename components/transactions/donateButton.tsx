@@ -4,9 +4,9 @@ import {
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
 
-import { TransactionService } from '@martifylabs/mesh'
+import { Transaction } from '@martifylabs/mesh'
 
-const donationAddress = "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r"
+const donationAddress = "addr_test1qrqasyjrvff5skkxyf49t6feq0597exxzwu7sdszl89r64nsuygajm0vp4m29g85nr86sedq6rg4kmzt9c2ghmqld4ask5tdam"
 
 export default function DonateButton() {
     const { walletConnected, wallet } = useWallet();
@@ -21,7 +21,7 @@ export default function DonateButton() {
                 alert("this dapp only works on Cardano Testnet")
             }
             else {
-                const tx = new TransactionService({ initiator: wallet }).sendLovelace(
+                const tx = new Transaction({ initiator: wallet }).sendLovelace(
                     donationAddress,
                     "5000000"
                 );

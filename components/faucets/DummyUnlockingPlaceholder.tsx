@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
+import type { UTxO, Asset, Data, Action, Address} from '@martifylabs/mesh'
 
 import {
     Box, Button, Center, Heading, Spinner, Text,
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
-import { TransactionService, BlockfrostProvider, resolveDataHash } from '@martifylabs/mesh'
+import { Transaction, BlockfrostProvider, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
 // Use these type to check against 3rd party query
 // Review other Types
 import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-tgimbal"
@@ -34,6 +34,8 @@ export default function DummyUnlockingPlaceholder() {
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [faucetBalance, setFaucetBalance] = useState<number | null>(null)
     const [tokensBackToFaucet, setTokensBackToFaucet] = useState<number>(0)
+    const [txLoading, setTxLoading] = useState<boolean>(false)
+    const [connectedPkh, setConnectedPkh] = useState<string>("")
 
     const datum = 1618;
     const datumHash = resolveDataHash(datum);
@@ -63,6 +65,13 @@ export default function DummyUnlockingPlaceholder() {
         }
     }, [faucetBalance])
 
+    useEffect(() => {
+        if(walletConnected) {
+            const result = resolveKeyHash(connectedAddress)
+            setConnectedPkh(result)
+        }
+    }, [walletConnected])
+
     // Todo: Check against registered metadata to get quantity
     const assetsToSender: Asset[] = [
         {
@@ -86,14 +95,17 @@ export default function DummyUnlockingPlaceholder() {
         }
     ]
 
-    const justAnIntegerRedeemer: Action = {
-        data: 101
+    const pkhRedeemer: Action = {
+        data: [connectedPkh],
+        index: 0
     }
+
+    // could this be a problem protocol parameters?
 
     const handleUnLockTokens = async () => {
 
         if (walletConnected) {
-            // setLoading(true)
+            setTxLoading(true)
             const network = await wallet.getNetworkId()
             if (network == 1) {
                 alert("For now, this dapp only works on Cardano Testnet")
@@ -102,13 +114,13 @@ export default function DummyUnlockingPlaceholder() {
                     console.log("Build a transaction.")
                     console.log("Connected", connectedAddress)
                     console.log("Contract", tgimbal.address)
-                    const tx = new TransactionService({ initiator: wallet })
-                        .redeemFromScript(
-                            _contract_utxo[0],
+                    const tx = new Transaction({ initiator: wallet })
+                        .redeemValue(
                             tgimbal.script,
+                            _contract_utxo[0],
                             {
                                 datum,
-                                redeemer: justAnIntegerRedeemer
+                                redeemer: pkhRedeemer
                             },
                         ).sendAssets(
                             connectedAddress,
@@ -119,7 +131,9 @@ export default function DummyUnlockingPlaceholder() {
                         ).sendAssets(
                             tgimbal.address,
                             assetsToContract,
-                            { datum: datum }
+                            { datum }
+                        ).setRequiredSigners(
+                            [connectedAddress]
                         );
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
@@ -141,7 +155,7 @@ export default function DummyUnlockingPlaceholder() {
                     }
                 }
             }
-            // setLoading(false)
+            setTxLoading(false)
         }
         else {
             alert("please connect a wallet")
@@ -190,12 +204,13 @@ export default function DummyUnlockingPlaceholder() {
             <Text py='3'>Faucet Balance: {faucetBalance}</Text>
             <Text py='3'>You Get: {withdrawalAmount}</Text>
             <Text py='3'>Return to Faucet: {tokensBackToFaucet}</Text>
+            <Text py='3'>Give me that PKH: {connectedPkh}</Text>
             <Text py='3'>
                 {JSON.stringify(_contract_utxo)}
             </Text>
 
             <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock those Tokens!</Button>
-            {loading ? (
+            {txLoading ? (
                 <Center>
                     <Spinner />
                 </Center>

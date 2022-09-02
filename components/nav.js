@@ -15,6 +15,8 @@ export default function Nav() {
         <Spacer />
         <Link href="/transactions">(5) First Txs</Link>
         <Spacer />
+        <Link href="/faucets">PPBL Faucet</Link>
+        <Spacer />
       </Flex>
   )
 }

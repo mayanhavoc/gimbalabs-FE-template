@@ -753,15 +753,25 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@emurgo/cardano-serialization-lib-browser@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-browser/-/cardano-serialization-lib-browser-11.0.3.tgz#ad543387003a0dcf3d1abc060eaa43b366bfc13b"
-  integrity sha512-LlU7VPOBkJMMW0iD1H8d54rg5CtWo7YTYWlPO7f3ztgDKvS+nl+wJXamdmK8m4OfJqh1YeigabwMpQJJEZX/Pw==
+"@emurgo/cardano-message-signing-browser@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-message-signing-browser/-/cardano-message-signing-browser-1.0.1.tgz#fb0a481575131d15bf15bb8781cb03bd3f7d56b0"
+  integrity sha512-yC4Ymq44WR0bXO1wzxCoyc2W/RD1KSAla0oYhin7IYoVkp2raGp8wt7QNF4pDdNnTcejn5fyPyYY9dL4666H1w==
 
-"@emurgo/cardano-serialization-lib-nodejs@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-nodejs/-/cardano-serialization-lib-nodejs-11.0.3.tgz#bec8284cdc4819577619127b09685bf67c84ff72"
-  integrity sha512-USUKgI9HRooyMeNWUCZVSZB2aPj4LR5QaMyBbnj08n6Hnykbc7966RUx3E1CmWWiJ36OiTfXbjWwnpMj4ESqzA==
+"@emurgo/cardano-message-signing-nodejs@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-message-signing-nodejs/-/cardano-message-signing-nodejs-1.0.1.tgz#b2fa1f7541055a6c4b8e805492b1a9362bea5835"
+  integrity sha512-PoKh1tQnJX18f8iEr8Jk1KXxKCn9eqaSslMI1pyOJvYRJhQVDLCh0+9YReufjp0oFJIY1ShcrR+4/WnECVZUKQ==
+
+"@emurgo/cardano-serialization-lib-browser@11.0.5":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-browser/-/cardano-serialization-lib-browser-11.0.5.tgz#1cb3119b9b934a38782343020d9e22b455e66bd6"
+  integrity sha512-iDXn6pjK3TSrFyUnLMf5lJzBgdf2aV2NTfM+Xc9t9j625W7/f/oQghUIBNpdJlHa0v11oPYFYRY5T1nFgb2mHA==
+
+"@emurgo/cardano-serialization-lib-nodejs@11.0.5":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@emurgo/cardano-serialization-lib-nodejs/-/cardano-serialization-lib-nodejs-11.0.5.tgz#3563c9fdc9ec9e0e71f8a75f3d7d9a872bf96661"
+  integrity sha512-6SBlRunFMLj9sC3YmMuJzPW0lY6MYOwMKft+/lkUtZPgUWsyzi7+d24iS3E2ThPDY1seS43dzHwZAeZxBH5KkQ==
 
 "@emurgo/cip14-js@3.0.1":
   version "3.0.1"
@@ -805,18 +815,19 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@martifylabs/mesh@^0.0.7-beta.4":
-  version "0.0.7-beta.4"
-  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.7-beta.4.tgz#a1f632a19c5f5cd347a2fdf5417e6012994c3a82"
-  integrity sha512-gHTLfxIIOBzYAgCAkAC6MC0oW78u4tSG5Z2p7Wyr03OF4i9MuvLcehSujLXKV+t4P/8Lt12oPf5fS9aF1L113g==
+"@martifylabs/mesh@^0.0.8-beta.3":
+  version "0.0.8-beta.3"
+  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-0.0.8-beta.3.tgz#d285a95c9f2aa4d4f48f485add6f1289ffbbc276"
+  integrity sha512-1S1HLf7I4exAvTvDjeCGMbZQDt5jLPlajR4zsRk0yK3Aa9G4M8gdbzHfUsFhcimMIDe3mKynaAvRDbVXeW9TdA==
   dependencies:
-    "@emurgo/cardano-serialization-lib-browser" "11.0.3"
-    "@emurgo/cardano-serialization-lib-nodejs" "11.0.3"
+    "@emurgo/cardano-message-signing-browser" "1.0.1"
+    "@emurgo/cardano-message-signing-nodejs" "1.0.1"
+    "@emurgo/cardano-serialization-lib-browser" "11.0.5"
+    "@emurgo/cardano-serialization-lib-nodejs" "11.0.5"
     "@emurgo/cip14-js" "3.0.1"
     axios "0.27.2"
     bip39 "3.0.4"
     crypto-random-string "5.0.0"
-    zod "3.17.10"
 
 "@motionone/animation@^10.12.0":
   version "10.13.1"
@@ -3220,8 +3231,3 @@ zen-observable@0.8.15:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
-
-zod@3.17.10:
-  version "3.17.10"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.17.10.tgz#8716a05e6869df6faaa878a44ffe3c79e615defb"
-  integrity sha512-IHXnQYQuOOOL/XgHhgl8YjNxBHi3xX0mVcHmqsvJgcxKkEczPshoWdxqyFwsARpf41E0v9U95WUROqsHHxt0UQ==

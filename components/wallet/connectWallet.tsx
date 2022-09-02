@@ -7,7 +7,7 @@ import { Button } from '@chakra-ui/react';
 
 export default function ConnectWallet() {
     const { connecting, walletNameConnected, connectWallet } = useWallet();
-    const [availableWallets, setAvailableWallets] = useState<Wallet[] | undefined>(undefined);
+    const [availableWallets, setAvailableWallets] = useState<Wallet[]>([]);
 
     useEffect(() => {
         async function init() {

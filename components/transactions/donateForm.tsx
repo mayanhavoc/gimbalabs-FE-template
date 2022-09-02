@@ -4,11 +4,11 @@ import {
 } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import useWallet from "../../contexts/wallet";
-import { TransactionService } from '@martifylabs/mesh'
+import { Transaction } from '@martifylabs/mesh'
 
 
 export default function DonateForm() {
-    const donationAddress = "addr_test1qz2h42hnke3hf8n05m2hzdaamup6edfqvvs2snqhmufv0eryqhtfq6cfwktmrdw79n2smpdd8n244z8x9f3267g8cz6s59993r"
+    const donationAddress = "addr_test1qrqasyjrvff5skkxyf49t6feq0597exxzwu7sdszl89r64nsuygajm0vp4m29g85nr86sedq6rg4kmzt9c2ghmqld4ask5tdam"
 
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
@@ -36,7 +36,7 @@ export default function DonateForm() {
                 alert("You must send at least 1 ada.")
             }
             else {
-                const tx = new TransactionService({ initiator: wallet }).sendLovelace(
+                const tx = new Transaction({ initiator: wallet }).sendLovelace(
                     donationAddress,
                     formik.values.lovelace
                 );
