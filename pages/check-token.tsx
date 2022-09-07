@@ -8,7 +8,16 @@ import useWallet from '../contexts/wallet';
 // You can change this policyId to match any token.
 // 1. Try changing it to match a token that you minting in Module 201
 // 2. Can you get this page to work with a token on Cardano mainnet?
+
+// ----------------------------------------------------------------
+// PolicyIds for PPBLSummer2022 Token:
+// Pre-Production
+// const policyId = "748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c60"
+
+// Legacy Testnet
 const policyId = "748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c60"
+// ----------------------------------------------------------------
+
 
 const CheckToken: NextPage = () => {
   const { connecting, walletNameConnected, connectWallet, walletConnected, wallet } = useWallet();

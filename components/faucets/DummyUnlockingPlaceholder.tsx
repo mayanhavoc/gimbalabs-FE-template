@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import type { UTxO, Asset, Data, Action, Address} from '@martifylabs/mesh'
+import type { UTxO, Asset, Data, Action, Address } from '@martifylabs/mesh'
 
 import {
     Box, Button, Center, Heading, Spinner, Text,
@@ -9,7 +9,7 @@ import useWallet from "../../contexts/wallet";
 import { Transaction, BlockfrostProvider, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
 // Use these type to check against 3rd party query
 // Review other Types
-import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-tgimbal"
+import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-minimal-tgimbal"
 
 const QUERY = gql`
     query UtxosAtAddress($contractAddress: String!) {
@@ -41,7 +41,7 @@ export default function DummyUnlockingPlaceholder() {
     const datumHash = resolveDataHash(datum);
     const faucetAsset = "fb45417ab92a155da3b31a8928c873eb9fd36c62184c736f189d334c7467696d62616c";
     const faucetTokenName = "tgimbal";
-    const withdrawalAmount = 3000;
+    const withdrawalAmount = 250;
 
     let _contract_utxo: UTxO[] = []
 
@@ -66,7 +66,7 @@ export default function DummyUnlockingPlaceholder() {
     }, [faucetBalance])
 
     useEffect(() => {
-        if(walletConnected) {
+        if (walletConnected) {
             const result = resolveKeyHash(connectedAddress)
             setConnectedPkh(result)
         }
@@ -96,14 +96,12 @@ export default function DummyUnlockingPlaceholder() {
     ]
 
     const pkhRedeemer: Action = {
-        data: [connectedPkh],
-        index: 0
+        data: 101
     }
 
     // could this be a problem protocol parameters?
 
     const handleUnLockTokens = async () => {
-
         if (walletConnected) {
             setTxLoading(true)
             const network = await wallet.getNetworkId()
@@ -114,15 +112,30 @@ export default function DummyUnlockingPlaceholder() {
                     console.log("Build a transaction.")
                     console.log("Connected", connectedAddress)
                     console.log("Contract", tgimbal.address)
-                    const tx = new Transaction({ initiator: wallet })
-                        .redeemValue(
-                            tgimbal.script,
-                            _contract_utxo[0],
-                            {
-                                datum,
-                                redeemer: pkhRedeemer
-                            },
-                        ).sendAssets(
+                    const tx = new Transaction({
+                        initiator: wallet, parameters: {
+                            epoch: 0,
+                            coinsPerUTxOSize: '34482',
+                            priceMem: 0.0577,
+                            priceStep: 0.0000721,
+                            minFeeA: 44,
+                            minFeeB: 155381,
+                            keyDeposit: '2000000',
+                            maxTxSize: 16384,
+                            maxValSize: '5000',
+                            poolDeposit: '500000000',
+                            maxCollateralInputs: 3,
+                            maxBlockSize: 65536,
+                            collateralPercent: 150,
+                            maxBlockHeaderSize: 1100,
+                            minPoolCost: '0',
+                            maxTxExMem: '10000000',
+                            maxTxExSteps: '10000000000',
+                            maxBlockExMem: '50000000',
+                            maxBlockExSteps: '40000000000',
+                        }, era: "ALONZO"
+                    })
+                        .sendAssets(
                             connectedAddress,
                             assetsToSender
                         ).sendAssets(
@@ -132,8 +145,13 @@ export default function DummyUnlockingPlaceholder() {
                             tgimbal.address,
                             assetsToContract,
                             { datum }
-                        ).setRequiredSigners(
-                            [connectedAddress]
+                        ).redeemValue(
+                            tgimbal.script,
+                            _contract_utxo[0],
+                            {
+                                datum,
+                                redeemer: pkhRedeemer
+                            },
                         );
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
