@@ -43,7 +43,7 @@ const Faucets: NextPage = () => {
         Make sure that you can connect your wallet to this dapp
       </Heading>
       <Heading size='lg' pt='3'>
-        View a list of all PPBL Student Faucets: <Link href="/registered-faucets">Registered Faucets</Link>
+      <Link href="/registered-faucets">Click here to view a list of all PPBL Student Faucets!</Link>
       </Heading>
       <Box my='5' p='5' bg='teal.700' color='white'>
         {loading ? (
