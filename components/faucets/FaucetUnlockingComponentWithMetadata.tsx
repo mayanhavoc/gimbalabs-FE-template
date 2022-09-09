@@ -213,6 +213,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
         <Text>{JSON.stringify(error)}</Text>
     )
 
+    // To Do: Change this to handle multi utxos - error does not appear. (Can you see why?)
 
     if (data) {
         const _asset_list: Asset[] = [
