@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import type { UTxO, Asset, Data, Action, Address } from '@martifylabs/mesh'
+import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 
 import {
     Box, Button, Center, Heading, Spinner, Text,
@@ -28,7 +28,7 @@ const QUERY = gql`
     }
 `;
 
-export default function DummyUnlockingPlaceholder() {
+export default function FaucetUnlockIntegerRedeemer() {
 
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
@@ -95,7 +95,7 @@ export default function DummyUnlockingPlaceholder() {
         }
     ]
 
-    const pkhRedeemer: Action = {
+    const pkhRedeemer: Partial<Action> = {
         data: 101
     }
 
@@ -106,7 +106,7 @@ export default function DummyUnlockingPlaceholder() {
             setTxLoading(true)
             const network = await wallet.getNetworkId()
             if (network == 1) {
-                alert("For now, this dapp only works on Cardano Testnet")
+                alert("For now, this dapp only works on Cardano Pre-Production Testnet")
             } else {
                 try {
                     console.log("Build a transaction.")
@@ -216,6 +216,7 @@ export default function DummyUnlockingPlaceholder() {
 
     return (
         <Box my='5' p='5' bg='purple.900' color='white'>
+            <Heading>Unlock Tokens from Faucet</Heading>
             <Text py='3'>
                 Withdraw {withdrawalAmount} {faucetTokenName} tokens from {tgimbal.address}
             </Text>

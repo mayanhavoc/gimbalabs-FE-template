@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
-    Box, Button, Center, Heading, Spinner, Text,
+    Box, Button, Center, Flex, Heading, Spacer, Spinner, Text,
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
 import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 // Show how to use these type to check against 3rd party query
 // Suggested Exploration + Doc-Writing: Review other Types
-import { tgimbal } from "../../cardano/plutus/pre-prod-faucet-tgimbal"
+import { faucetList } from "../../cardano/plutus/ppbl-preprod-faucet-list"
+import { FaucetMetadata } from "../../cardano/Types";
+import { stringToHex } from "../../cardano/utils";
 
 const QUERY = gql`
     query UtxosAtAddress($contractAddress: String!) {
@@ -27,9 +29,13 @@ const QUERY = gql`
     }
 `;
 
-export default function FaucetUnlockingComponent() {
+type Props = {
+    faucetInstance: FaucetMetadata
+}
 
-    const contractAddress = tgimbal.address
+
+const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance }) => {
+
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [faucetBalance, setFaucetBalance] = useState<number | null>(null)
@@ -37,18 +43,22 @@ export default function FaucetUnlockingComponent() {
     const [txLoading, setTxLoading] = useState<boolean>(false)
     const [connectedPkh, setConnectedPkh] = useState<string>("")
 
-    // Check against registered metadata for the following:
-    const datum = 1618;
+    // All of the following data is pulled from on-chain metadata:
+    const contractAddress = faucetInstance.contractAddress;
+    const datum = parseInt(faucetInstance.datumInt);
     const datumHash = resolveDataHash(datum);
-    const faucetAsset = "fb45417ab92a155da3b31a8928c873eb9fd36c62184c736f189d334c7467696d62616c";
-    const faucetTokenName = "tgimbal";
-    const withdrawalAmount = 3000;
+    const faucetAssetPolicyId: string = faucetInstance.policyId;
+    const faucetTokenName = faucetInstance.tokenName;
+    const tokenHex: string = stringToHex(faucetTokenName);
+    const faucetAsset: string = faucetAssetPolicyId + tokenHex;
+    const withdrawalAmount = faucetInstance.withdrawalAmount;
+    const plutusScript: string = faucetList.filter(asset => asset.address == contractAddress)[0].script;
 
     let _contract_utxo: UTxO[] = []
 
     const { data, loading, error } = useQuery(QUERY, {
         variables: {
-            contractAddress: tgimbal.address
+            contractAddress: contractAddress
         }
     });
 
@@ -62,7 +72,8 @@ export default function FaucetUnlockingComponent() {
 
     useEffect(() => {
         if (faucetBalance) {
-            setTokensBackToFaucet(faucetBalance - withdrawalAmount)
+            const withdrawalNumber = parseInt(withdrawalAmount)
+            setTokensBackToFaucet(faucetBalance - withdrawalNumber)
         }
     }, [faucetBalance])
 
@@ -150,7 +161,7 @@ export default function FaucetUnlockingComponent() {
                         }, era: "ALONZO"
                     })
                         .redeemValue(
-                            tgimbal.script,
+                            plutusScript,
                             _contract_utxo[0],
                             {
                                 datum,
@@ -220,7 +231,7 @@ export default function FaucetUnlockingComponent() {
                 txHash: data.utxos[0].txHash
             },
             output: {
-                address: tgimbal.address,
+                address: contractAddress,
                 amount: _asset_list,
                 dataHash: datumHash
             }
@@ -228,49 +239,67 @@ export default function FaucetUnlockingComponent() {
     }
 
     return (
-        <Box my='5' p='5' bg='purple.900' color='white'>
-            <Heading size='md' py='2'>
-                Pre-Production PPBL Faucet Example
+        <Box my='5' p='5' bg='white' color='black'>
+            <Heading size='lg' py='2'>
+                Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
-            <Heading size='lg'>
-                Unlock {withdrawalAmount} {faucetTokenName} Tokens from Faucet
-            </Heading>
-            <Text py='2'>
-                Here is an array of UTxOs at the Contract Address: {JSON.stringify(_contract_utxo)}
-            </Text>
-            <Text py='2'>
-                If we are managing UTxOs correctly, then there should be just one listed here. (Length of array: {_contract_utxo.length})
-            </Text>
-            <Text py='2'>
-                Datum Hash: {datumHash}
-            </Text>
-            <Box my='2' p='2' bg='purple.200' color='black'>
-                Current Faucet Balance: {faucetBalance} (The Tx should return {tokensBackToFaucet} tgimbals to the faucet.)
-            </Box>
+
             <Text py='2'>
                 Contract Address: {contractAddress}
             </Text>
-            <Text py='2'>
-                Your PKH: {connectedPkh}
-            </Text>
-            <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock those Tokens!</Button>
-            {txLoading ? (
-                <Center>
-                    <Spinner />
+
+            {_contract_utxo.length == 1 ? (
+                <Center w='70%' mx='auto' my='3' p='2' bg='green.200' color='black'>
+                    <Text fontSize='sm'>
+                        This is a well-managed Contract Address, with exactly 1 UTxO
+                    </Text>
                 </Center>
             ) : (
-                <Box mt='2' p='2' bg='purple.200' color='black'>
-                    {successfulTxHash ? (
-                        <Text>
-                            {successfulTxHash}
-                        </Text>
-                    ) : (
-                        <Text>
-                            Try it!
-                        </Text>
-                    )}
-                </Box>
+                <Center w='50%' mx='auto' my='3' p='2' bg='red.200' color='black'>
+                    <Text fontSize='sm'>
+                        Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
+                    </Text>
+                </Center>
             )}
+            <Text py='2'>
+                Datum Hash: {datumHash}
+            </Text>
+            <Flex direction='row'>
+                <Spacer />
+                <Box my='2' p='2' bg='green.200' color='black'>
+                    Current Faucet Balance: {faucetBalance}
+                </Box>
+                <Spacer />
+                <Box my='2' p='2' bg='green.200' color='black'>
+                    This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
+                </Box>
+                <Spacer />
+            </Flex>
+            <Flex direction='row'>
+                <Spacer />
+                <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
+                <Spacer />
+                {txLoading ? (
+                    <Center>
+                        <Spinner />
+                    </Center>
+                ) : (
+                    <Box w='40%' m='2' p='2' bg='purple.200' color='black'>
+                        {successfulTxHash ? (
+                            <Text fontSize='sm'>
+                                Withdrawal Tx Submitted! TxHash: {successfulTxHash}
+                            </Text>
+                        ) : (
+                            <Text fontSize='sm'>
+                                Press the button to build and submit an unlocking transaction.
+                            </Text>
+                        )}
+                    </Box>
+                )}
+                <Spacer />
+            </Flex>
         </Box>
     );
 }
+
+export default FaucetUnlockingComponentWithMetadata

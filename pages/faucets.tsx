@@ -2,12 +2,11 @@ import {
   Box, Heading, Text, Spinner, Center
 } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
+import Link from 'next/link';
 import type { NextPage } from "next";
 import useWallet from '../contexts/wallet';
 import FaucetUnlockingComponent from '../components/faucets/FaucetUnlockingComponent';
 import FaucetLockingComponent from '../components/faucets/FaucetLockingComponent';
-import FaucetMetadataRegistration from '../components/faucets/FaucetMetadataRegistration';
-import DummyUnlockingPlaceholder from '../components/faucets/DummyUnlockingPlaceholder'
 
 const Faucets: NextPage = () => {
   const { walletNameConnected, walletConnected, wallet, connectedAddress } = useWallet();
@@ -43,6 +42,9 @@ const Faucets: NextPage = () => {
       <Heading size='lg' pt='3'>
         Make sure that you can connect your wallet to this dapp
       </Heading>
+      <Heading size='lg' pt='3'>
+        View a list of all PPBL Student Faucets: <Link href="/registered-faucets">Registered Faucets</Link>
+      </Heading>
       <Box my='5' p='5' bg='teal.700' color='white'>
         {loading ? (
           <Center>
@@ -64,8 +66,8 @@ const Faucets: NextPage = () => {
           </>
         )}
       </Box>
+      <FaucetUnlockingComponent />
       <FaucetLockingComponent />
-      <DummyUnlockingPlaceholder />
     </Box>
   )
 }
