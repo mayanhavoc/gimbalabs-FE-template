@@ -4,5 +4,4 @@ export type FaucetMetadata = {
     tokenName: string;
     contractAddress: string;
     withdrawalAmount: string;
-    plutusScriptFileName: string;
 }

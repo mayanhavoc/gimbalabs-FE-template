@@ -62,7 +62,6 @@ export default function RegisteredFaucets() {
                 tokenName: tx.metadata[0].value.tokenName,
                 contractAddress: tx.metadata[0].value.contractAddress,
                 withdrawalAmount: tx.metadata[0].value.withdrawalAmount,
-                plutusScriptFileName: tx.metadata[0].value.plutusScriptFileName,
             }
             metadataResults.push(result)
         })

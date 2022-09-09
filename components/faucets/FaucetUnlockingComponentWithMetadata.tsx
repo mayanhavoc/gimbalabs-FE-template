@@ -239,30 +239,30 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     }
 
     return (
-        <Box my='5' p='5' bg='white' color='black'>
+        <Box m='5' p='5' bg='white' color='black'>
             <Heading size='lg' py='2'>
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
 
-            <Text py='2'>
-                Contract Address: {contractAddress}
-            </Text>
 
             {_contract_utxo.length == 1 ? (
-                <Center w='70%' mx='auto' my='3' p='2' bg='green.200' color='black'>
+                <Center my='3' p='2' bg='green.200' color='black'>
                     <Text fontSize='sm'>
                         This is a well-managed Contract Address, with exactly 1 UTxO
                     </Text>
                 </Center>
             ) : (
-                <Center w='50%' mx='auto' my='3' p='2' bg='red.200' color='black'>
+                <Center my='3' p='2' bg='red.200' color='black'>
                     <Text fontSize='sm'>
                         Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
                     </Text>
                 </Center>
             )}
             <Text py='2'>
-                Datum Hash: {datumHash}
+                Contract Address: {contractAddress}
+            </Text>
+            <Text py='2'>
+                Datum Value: {datum} Datum Hash: {datumHash}
             </Text>
             <Flex direction='row'>
                 <Spacer />
@@ -270,34 +270,30 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                     Current Faucet Balance: {faucetBalance}
                 </Box>
                 <Spacer />
+                <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
+                <Spacer />
                 <Box my='2' p='2' bg='green.200' color='black'>
                     This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
                 </Box>
                 <Spacer />
             </Flex>
-            <Flex direction='row'>
-                <Spacer />
-                <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
-                <Spacer />
-                {txLoading ? (
-                    <Center>
-                        <Spinner />
-                    </Center>
-                ) : (
-                    <Box w='40%' m='2' p='2' bg='purple.200' color='black'>
-                        {successfulTxHash ? (
-                            <Text fontSize='sm'>
-                                Withdrawal Tx Submitted! TxHash: {successfulTxHash}
-                            </Text>
-                        ) : (
-                            <Text fontSize='sm'>
-                                Press the button to build and submit an unlocking transaction.
-                            </Text>
-                        )}
-                    </Box>
-                )}
-                <Spacer />
-            </Flex>
+            {txLoading ? (
+                <Center>
+                    <Spinner />
+                </Center>
+            ) : (
+                <Center m='2' p='2' bg='purple.200' color='black'>
+                    {successfulTxHash ? (
+                        <Text fontSize='sm'>
+                            Withdrawal Tx Submitted! TxHash: {successfulTxHash}
+                        </Text>
+                    ) : (
+                        <Text fontSize='sm'>
+                            Press the button to build and submit an unlocking transaction.
+                        </Text>
+                    )}
+                </Center>
+            )}
         </Box>
     );
 }
