@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-    Box, Heading, Text, Center, Spinner,
+    Box, Heading, Text, Link, Center, Spinner,
     Table, Thead, Tbody, Tr, Th, Td, TableContainer, TableCaption
 } from "@chakra-ui/react"
 
@@ -21,8 +21,11 @@ export default function HoldersByAssetID() {
 
     return (
         <Box m='5' p='5' bg='gray.300'>
-            <Heading size='2xl'>
-                Retrieve a list of addresses with a Koios Query
+            <Heading size='lg'>
+                Retrieve a list of addresses with a Koios Query (Old Testnet)
+            </Heading>
+            <Heading size='md'>
+                Koios makes this easy. Can you accomplish the same thing with GraphQL? This is your challenge for <Link href="https://gimbalabs.instructure.com/courses/26/assignments/466" color="orange.700">Module 302 - Mastery Level 2</Link>
             </Heading>
             <Text p='2'>
                 Made with <a href="https://testnet.koios.rest/#get-/asset_address_list">https://testnet.koios.rest/#get-/asset_address_list</a>

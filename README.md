@@ -14,7 +14,7 @@ yarn install
 yarn dev
 ```
 
-In a browser, go to [https://localhost:3000](https://localhost:3000) and connect a Testnet Wallet.
+In a browser, go to [https://localhost:3000](https://localhost:3000) and connect a Wallet. This project can connect to Browser Wallets on Cardano Mainnet, Testnet, Pre-Production, and Preview. Currently, most of the transaction functionality is configured to work with Pre-Production, and has been tested with [Eternl Wallet on Pre-Production](https://eternl.io/app/preprod/welcome). `Only a few changes are required to make this template work with other Cardano networks, like Mainnet and Preview.
 
 ### You'll know you are successful if:
 You can see the "Congratulations" message with your wallet address after clicking the button at [https://localhost:3000](https://localhost:3000). Try it with both Testnet and Mainnet!

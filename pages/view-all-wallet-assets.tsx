@@ -1,26 +1,28 @@
 import {
-    Box, Heading,
+    Box, Heading, Text,
+    Center, Spinner
 } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import Mesh from "@martifylabs/mesh";
-
-import ConnectWallet from '../components/wallet/connectWallet';
+import useWallet from '../contexts/wallet';
 
 const ViewAllWalletAssets: NextPage = () => {
-
-    const [walletConnected, setWalletConnected] = useState<null | string>(null);
+    const { walletConnected, wallet } = useWallet();
+    const [loading, setLoading] = useState<boolean>(true);
     const [currentNetwork, setCurrentNetwork] = useState<"Not Connected" | "Mainnet" | "Testnet">("Not Connected")
     const [assets, setAssets] = useState<null | any>(null);
 
     useEffect(() => {
+        
         const fetchAssets = async () => {
-            const _assets = await Mesh.wallet.getAssets({});
+            setLoading(true);
+            const _assets = await wallet.getAssets();
             setAssets(_assets);
+            setLoading(false);
         }
 
         const fetchNetwork = async () => {
-            const _network = await Mesh.wallet.getNetworkId();
+            const _network = await wallet.getNetworkId();
             if (_network === 0) {
                 setCurrentNetwork("Testnet")
             }
@@ -44,16 +46,29 @@ const ViewAllWalletAssets: NextPage = () => {
             <Heading py='2' size='sm'>
                 On Cardano Network: {currentNetwork}
             </Heading>
-            <Box m='5' p='5' bg='#435689' color='#ffffff'>
-                <ConnectWallet
-                    walletConnected={walletConnected}
-                    setWalletConnected={setWalletConnected}
-                />
-                {/* TODO: Replace with an Array.map */}
-                <pre>
-                    <code className="language-js">{JSON.stringify(assets, null, 2)}</code>
-                </pre>
-            </Box>
+            <Heading py='2' size='sm'>
+                Note: Browser Wallets do not expose a way to distinguish between "Preview", "Pre-Production", and "Old Testnet". All are Testnets.
+            </Heading>
+            
+            {loading ? (
+                <Box m='5' p='5' bg='#435689' color='#ffffff'>
+                    {walletConnected ? (
+                        <Center>
+                            <Text>Loading Assets...</Text>
+                            <Spinner />
+                        </Center>
+                    ) : (
+                        <Text>Please connect a Wallet</Text>
+                    )}
+                </Box>
+            ) : (
+                <Box m='5' p='5' bg='#435689' color='#ffffff'>
+                    {/* As an exercise, use assets.map to create a dynamic list of components */}
+                    <pre>
+                        <code className="language-js">{JSON.stringify(assets, null, 2)}</code>
+                    </pre>
+                </Box>
+            )}
         </Box>
     )
 }
