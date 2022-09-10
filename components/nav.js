@@ -5,17 +5,14 @@ export default function Nav() {
   return (
       <Flex direction="row" w="100%" p="5" bg="gray.300">
         <Spacer />
-        <Link href="/">(1) Check Connection</Link>
+        <Link href="/">Module 202 - Start</Link>
         <Spacer />
-        <Link href="/check-token">(2) Check for PPBLSummer2022</Link>
+        <Link href="/token-holders">Module 202 - BBK: Blockchain Queries</Link>
         <Spacer />
-        <Link href="/token-holders">(3) PPBLSummer2022 Token Holders</Link>
+  
+        <Link href="/transactions">Project 301 - Basic Transactions </Link>
         <Spacer />
-        <Link href="/metadata-example">(4) Hello Metadata!</Link>
-        <Spacer />
-        <Link href="/transactions">(5) First Txs</Link>
-        <Spacer />
-        <Link href="/faucets">PPBL Faucet</Link>
+        <Link href="/faucets">Project 301 - PPBL Faucet</Link>
         <Spacer />
       </Flex>
   )
