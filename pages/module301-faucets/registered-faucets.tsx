@@ -4,8 +4,8 @@ import {
     Box, Heading, Text, Spinner, Center
 } from '@chakra-ui/react'
 
-import { FaucetMetadata } from "../cardano/Types";
-import FaucetUnlockingComponentWithMetadata from "../components/faucets/FaucetUnlockingComponentWithMetadata";
+import { FaucetMetadata } from "../../cardano/Types";
+import FaucetUnlockingComponentWithMetadata from "../../components/faucets/FaucetUnlockingComponentWithMetadata";
 
 // 1. Consume data from metadata query
 // 2. Use that data to populate placeholder component

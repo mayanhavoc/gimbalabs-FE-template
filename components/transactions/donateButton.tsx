@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-    Box, Heading, Text, Button, Center, Spinner
+    Box, Heading, Text, Button, Center, Spinner, Link
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
 
@@ -47,28 +47,31 @@ export default function DonateButton() {
     }
 
     return (
-        <Box my='5' p='5' bg='orange.200'>
+        <Box p='5' bg='orange.100' border='1px' borderRadius='xl' fontSize='lg'>
             <Heading size='xl'>
                 Donate Button
             </Heading>
             <Text py='3'>
                 One of the simplest transactions we can create is a "donate" button. Anyone who clicks it will send 5 tAda to a hard-coded address.
             </Text>
-            {loading ? (
-                <Center>
-                    <Spinner />
-                </Center>
-            ) : (
-                <>
-                    <Button onClick={handleDonate} colorScheme='green'>Is this thing on?</Button>
-                    <Text pt='3'>
-                        You'll know the transaction was successful if you see a TxHash here: {successfulTxHash}
-                    </Text>
-                    <Text pt='3'>
-                        Go find your transaction on <a href='https://testnet.cardanoscan.io/'>https://testnet.cardanoscan.io/. It may take a few moments to show up. Why do you think it is possible to see a TxHash before it is visible a blockchain explorer?</a>
-                    </Text>
-                </>
-            )}
+            <Button onClick={handleDonate} colorScheme='green' my='3'>Donate Button</Button>
+            <Box p='5' bg='blue.100'>
+                <Text py='2'>Tx Status</Text>
+                {loading ? (
+                    <Center>
+                        <Spinner />
+                    </Center>
+                ) : (
+                    <>
+                        <Text pt='3'>
+                            You'll know the transaction was successful if you see a TxHash here: {successfulTxHash}
+                        </Text>
+                        <Text pt='3'>
+                            Go find your transaction on <Link href='https://testnet.cardanoscan.io/'>https://testnet.cardanoscan.io/</Link>. It may take a few moments to show up. Why do you think it is possible to see a TxHash before it is visible a blockchain explorer?
+                        </Text>
+                    </>
+                )}
+            </Box>
         </Box>
     );
 }

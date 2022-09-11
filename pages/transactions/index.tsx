@@ -1,5 +1,5 @@
 import {
-    Box, Heading, Text, Center, Spinner
+    Box, Heading, Text, Center, Spinner, Grid, Spacer, GridItem
 } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
@@ -32,31 +32,50 @@ const TransactionsPage: NextPage = () => {
 
     return (
         <Box>
-            <Heading>
-                Example Transactions
+            <Heading variant='page-heading'>
+                Basic Transactions
             </Heading>
             <Heading size='lg' py='3'>
-                Here are some examples.
+                Each example is a unique Component, imported from <pre>/src/components/transactions</pre>
             </Heading>
 
-            <Box p='4' bg='purple.200'>
-                {(loading || connecting || connectedAddress.length === 0) ? (
+            {(loading || connecting || connectedAddress.length === 0) ? (
+                <Box w="50%" mx="auto" p='4' bg='purple.200'>
                     <Center>
+                        <Spacer />
+                        <Text>Waiting to Connect Wallet</Text>
+                        <Spacer />
                         <Spinner />
+                        <Spacer />
                     </Center>
-                ) : (
+                </Box>
+            ) : (
+                <Box p='4' bg='purple.200'>
                     <Text>
                         Connected to {connectedAddress} with {walletNameConnected}.
                     </Text>
-                )}
-            </Box>
+                </Box>
+            )}
 
-            <DonateButton />
-            <DonateForm />
-            <QuickSendToken />
-            <TransactionTemplate />
-
-
+            <Grid templateColumns='repeat(4, 1fr)' gap='5' mt='10'>
+                <GridItem colSpan={4}>
+                    <DonateButton />
+                </GridItem>
+                <GridItem colSpan={2}>
+                    <DonateForm />
+                </GridItem>
+                <GridItem colSpan={2}>
+                    <QuickSendToken />
+                </GridItem>
+                <GridItem colSpan={4} py='5'>
+                    <Heading>
+                        PPBL Student Contributions
+                    </Heading>
+                </GridItem>
+                <GridItem>
+                    <TransactionTemplate />
+                </GridItem>
+            </Grid>
         </Box>
     )
 }

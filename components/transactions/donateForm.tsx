@@ -64,8 +64,8 @@ export default function DonateForm() {
     }
 
     return (
-        <Box my='5' p='5' bg='orange.200'>
-            <Heading size='xl'>
+        <Box p='5' bg='orange.100' border='1px' borderRadius='xl' fontSize='lg'>
+            <Heading size='lg'>
                 Donate Form
             </Heading>
             <Text py='1'>
@@ -79,12 +79,12 @@ export default function DonateForm() {
                     <Spinner />
                 </Center>
             ) : (
-                <Box mt='2' p='5' bg='orange.100'>
+                <Box mt='2'>
                     <FormControl my='3'>
-                        <Input mb='3' bg='white' id="lovelace" name="lovelace" onChange={formik.handleChange} value={formik.values.lovelace} />
+                        <Input mb='3' bg='white' id="lovelace" name="lovelace" onChange={formik.handleChange} value={formik.values.lovelace} placeholder="Enter number of lovelace. (1 ADA = 1000000 Lovelace)" />
                         <Button colorScheme='purple' onClick={handleDonate}>Send this much lovelace</Button>
                     </FormControl>
-                    <Box mt='2' p='2' bg='blue.200'>
+                    <Box mt='2' p='2' bg='blue.100'>
                         <Heading size='sm' py='1'>Status</Heading>
                         {successfulTxHash ? (
                             <Text>Successful tx: {successfulTxHash}</Text>

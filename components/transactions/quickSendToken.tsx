@@ -76,11 +76,11 @@ export default function QuickSendToken() {
     }
 
     return (
-        <Box my='5' p='5' bg='orange.200'>
-            <Heading size='xl'>
+        <Box p='5' bg='orange.100' border='1px' borderRadius='xl' fontSize='lg'>
+            <Heading size='lg'>
                 Quickly Send a PPBLSummer2022 Token
             </Heading>
-            <Text py='2'>
+            <Text py='1'>
                 This form will send one PPBLSummer2022 token to the address specified.
             </Text>
             {loading ? (
@@ -88,12 +88,12 @@ export default function QuickSendToken() {
                     <Spinner />
                 </Center>
             ) : (
-                <Box mt='2' p='5' bg='orange.100'>
+                <Box mt='2'>
                     <FormControl>
-                        <Input my='3' bg='white' id="address" name="address" onChange={formik.handleChange} value={formik.values.address} />
+                        <Input my='3' bg='white' id="address" name="address" onChange={formik.handleChange} value={formik.values.address} placeholder="Enter a Cardano Pre-Production address" />
                         <Button colorScheme='purple' onClick={handleSend}>Send to Address</Button>
                     </FormControl>
-                    <Box mt='2' p='2' bg='blue.200'>
+                    <Box mt='2' p='2' bg='blue.100'>
                         <Heading size='sm' py='1'>Status</Heading>
                         {successfulTxHash ? (
                             <Text>Successful tx: {successfulTxHash}</Text>

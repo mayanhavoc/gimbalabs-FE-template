@@ -3,17 +3,16 @@ import {
     Center, Spinner
 } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
-import type { NextPage } from "next";
-import useWallet from '../contexts/wallet';
+import useWallet from '../../contexts/wallet';
 
-const ViewAllWalletAssets: NextPage = () => {
+export default function ViewAllWalletAssets() {
     const { walletConnected, wallet } = useWallet();
     const [loading, setLoading] = useState<boolean>(true);
     const [currentNetwork, setCurrentNetwork] = useState<"Not Connected" | "Mainnet" | "Testnet">("Not Connected")
     const [assets, setAssets] = useState<null | any>(null);
 
     useEffect(() => {
-        
+
         const fetchAssets = async () => {
             setLoading(true);
             const _assets = await wallet.getAssets();
@@ -39,19 +38,16 @@ const ViewAllWalletAssets: NextPage = () => {
     }, [walletConnected])
 
     return (
-        <Box>
+        <Box p='5' mt='5' bg='green.100' border='1px' borderRadius='lg'>
             <Heading>
-                View a list of all assets in your connected wallet
+                If Wallet is Connected, View a list of all Assets in the Wallet
             </Heading>
             <Heading py='2' size='sm'>
                 On Cardano Network: {currentNetwork}
             </Heading>
-            <Heading py='2' size='sm'>
-                Note: Browser Wallets do not expose a way to distinguish between "Preview", "Pre-Production", and "Old Testnet". All are Testnets.
-            </Heading>
-            
+
             {loading ? (
-                <Box m='5' p='5' bg='#435689' color='#ffffff'>
+                <Box my='5' p='5' bg='#435689' color='#ffffff'>
                     {walletConnected ? (
                         <Center>
                             <Text>Loading Assets...</Text>
@@ -69,8 +65,10 @@ const ViewAllWalletAssets: NextPage = () => {
                     </pre>
                 </Box>
             )}
+            <Text py='2'>
+                Note: Browser Wallets do not expose a way to distinguish between "Preview", "Pre-Production", and "Old Testnet". All are Testnets.
+            </Text>
         </Box>
     )
 }
 
-export default ViewAllWalletAssets

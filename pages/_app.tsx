@@ -7,6 +7,7 @@ import { WalletProvider } from '../contexts/wallet';
 import '@fontsource/fira-mono'
 import '@fontsource/courier-prime'
 import '@fontsource/comfortaa'
+import '@fontsource/work-sans'
 
 
 import Nav from '../components/nav'
@@ -20,7 +21,7 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: "Courier Prime",
+    heading: "Work Sans",
     body: "Comfortaa"
   },
   components: {
@@ -29,10 +30,9 @@ const theme = extendTheme({
         color: "purple.800"
       },
       variants: {
-        'my-variant': {
-          size: "4xl",
+        'page-heading': {
           color: "red.900",
-          font: "Comfortaa"
+          py: "4"
         }
       }
     },
@@ -40,7 +40,7 @@ const theme = extendTheme({
       baseStyle: {
         color: "orange.700"
       }
-    }
+    },
   }
 })
 
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider theme={theme}>
         <WalletProvider>
           <Nav />
-          <Box w='80%' mx='auto' p='5' mb='24'>
+          <Box w='85%' mx='auto' p='5' mb='24'>
             <Component {...pageProps} />
           </Box>
           <Footer />

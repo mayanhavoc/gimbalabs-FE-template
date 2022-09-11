@@ -2,8 +2,7 @@ import {
     Box, Heading, Text
 } from '@chakra-ui/react'
 import type { NextPage } from "next";
-import Mesh from "@martifylabs/mesh";
-import MetadataExampleQuery from '../components/queryResults/metadataExampleQuery';
+import MetadataExampleQuery from '../../components/queryResults/metadataExampleQuery';
 
 // ----------------------------------------------------------------
 // Data:
@@ -20,10 +19,6 @@ import MetadataExampleQuery from '../components/queryResults/metadataExampleQuer
 // ----------------------------------------------------------------
 
 const MetadataExample: NextPage = () => {
-
-    async function connectWallet(walletName: string) {
-        let connected = await Mesh.wallet.enable({ walletName: walletName });
-    }
 
     return (
         <Box>

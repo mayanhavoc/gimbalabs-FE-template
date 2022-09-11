@@ -2,8 +2,8 @@ import {
   Box, Heading, Text, Link
 } from '@chakra-ui/react'
 import type { NextPage } from "next";
-import HoldersByTx from '../components/queryResults/holdersByTx';
-import HoldersByAssetID from '../components/queryResults/holdersByAssetID';
+import HoldersByTx from '../../components/queryResults/holdersByTx';
+import HoldersByAssetID from '../../components/queryResults/holdersByAssetID';
 
 const TokenHolders: NextPage = () => {
 
