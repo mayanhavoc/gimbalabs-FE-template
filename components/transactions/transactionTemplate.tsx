@@ -29,6 +29,9 @@ export default function TransactionTemplate() {
                 Look at how addresses are handled in the Transaction API at the <Link href="https://mesh.martify.io/apis/transaction">Mesh Playground</Link>
             </Text>
             <Text py='3'>
+                Review other Transactions in this Front-End Template: see <Link href="https://gitlab.com/gimbalabs/plutus-pbl-summer-2022/ppbl-front-end-template/-/tree/main/components/transactions">/components/transactions/</Link> and <Link href="https://gitlab.com/gimbalabs/plutus-pbl-summer-2022/ppbl-front-end-template/-/tree/main/components/faucets">/components/faucets/</Link>.
+            </Text>
+            <Text py='3'>
                 Then, use this template to complete <Link href="https://gimbalabs.instructure.com/courses/26/assignments/468">Mastery Assignment 302.4</Link>
             </Text>
         </Box>

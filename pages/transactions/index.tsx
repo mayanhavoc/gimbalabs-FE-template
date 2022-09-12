@@ -10,6 +10,7 @@ import DonateButton from '../../components/transactions/donateButton';
 import DonateForm from '../../components/transactions/donateForm';
 import TransactionTemplate from '../../components/transactions/transactionTemplate';
 import QuickSendToken from '../../components/transactions/quickSendToken';
+import StudentContributions from '../../components/transactions/StudentContributions';
 
 const TransactionsPage: NextPage = () => {
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
@@ -67,15 +68,8 @@ const TransactionsPage: NextPage = () => {
                 <GridItem colSpan={2}>
                     <QuickSendToken />
                 </GridItem>
-                <GridItem colSpan={4} py='5'>
-                    <Heading>
-                        PPBL Student Contributions
-                    </Heading>
-                </GridItem>
-                <GridItem>
-                    <TransactionTemplate />
-                </GridItem>
             </Grid>
+            <StudentContributions />
         </Box>
     )
 }

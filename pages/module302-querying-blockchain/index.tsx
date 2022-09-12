@@ -23,12 +23,12 @@ const Module302: NextPage = () => {
                 </GridItem>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
                     <Text p='3'>
-                        <Link href="/templates/csr">Mastery Level 3</Link>
+                        <Link href="/module302-querying-blockchain/302-mastery-level-3">Mastery Level 3</Link>
                     </Text>
                 </GridItem>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
                     <Text p='3'>
-                        Mastery Level 4: Your task is to...
+                        <Link href="/module302-querying-blockchain/302-mastery-level-4">Mastery Level 4</Link>
                     </Text>
                 </GridItem>
             </Grid>
