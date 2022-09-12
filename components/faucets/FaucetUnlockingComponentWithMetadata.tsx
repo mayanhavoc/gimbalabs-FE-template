@@ -38,7 +38,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
 
     const { connecting, walletNameConnected, connectWallet, walletConnected, wallet, connectedAddress } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
-    const [faucetBalance, setFaucetBalance] = useState<number | null>(null)
+    const [faucetBalance, setFaucetBalance] = useState<number>(0)
     const [tokensBackToFaucet, setTokensBackToFaucet] = useState<number>(0)
     const [txLoading, setTxLoading] = useState<boolean>(false)
     const [connectedPkh, setConnectedPkh] = useState<string>("")
@@ -65,8 +65,10 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     useEffect(() => {
         if (_contract_utxo.length > 0) {
             const _faucetAsset = _contract_utxo[0].output.amount.filter(asset => asset.unit === faucetAsset)
-            const _faucetBalance = parseInt(_faucetAsset[0].quantity)
-            setFaucetBalance(_faucetBalance)
+            if (_faucetAsset.length > 0) {
+                const _faucetBalance = parseInt(_faucetAsset[0].quantity)
+                setFaucetBalance(_faucetBalance)
+            }
         }
     }, [_contract_utxo])
 
@@ -216,27 +218,47 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     // To Do: Change this to handle multi utxos - error does not appear. (Can you see why?)
 
     if (data) {
-        const _asset_list: Asset[] = [
-            {
-                unit: "lovelace",
-                quantity: data.utxos[0].value
-            },
-            {
-                unit: faucetAsset,
-                quantity: data.utxos[0].tokens[0].quantity
-            }
-        ]
-        _contract_utxo = [{
-            input: {
-                outputIndex: data.utxos[0].index,
-                txHash: data.utxos[0].txHash
-            },
-            output: {
-                address: contractAddress,
-                amount: _asset_list,
-                dataHash: datumHash
-            }
-        }]
+        if (data.utxos[0].tokens[0]) {
+            const _asset_list: Asset[] = [
+                {
+                    unit: "lovelace",
+                    quantity: data.utxos[0].value
+                },
+                {
+                    unit: faucetAsset,
+                    quantity: data.utxos[0].tokens[0].quantity
+                }
+            ]
+            _contract_utxo = [{
+                input: {
+                    outputIndex: data.utxos[0].index,
+                    txHash: data.utxos[0].txHash
+                },
+                output: {
+                    address: contractAddress,
+                    amount: _asset_list,
+                    dataHash: datumHash
+                }
+            }]
+        } else {
+            const _asset_list: Asset[] = [
+                {
+                    unit: "lovelace",
+                    quantity: data.utxos[0].value
+                }
+            ]
+            _contract_utxo = [{
+                input: {
+                    outputIndex: data.utxos[0].index,
+                    txHash: data.utxos[0].txHash
+                },
+                output: {
+                    address: contractAddress,
+                    amount: _asset_list,
+                    dataHash: datumHash
+                }
+            }]
+        }
     }
 
     return (
@@ -244,54 +266,63 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
             <Heading size='lg' py='2'>
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
-
-
-            {_contract_utxo.length == 1 ? (
-                <Center my='3' p='2' bg='green.200' color='black'>
-                    <Text fontSize='sm'>
-                        This is a well-managed Contract Address, with exactly 1 UTxO
-                    </Text>
-                </Center>
-            ) : (
-                <Center my='3' p='2' bg='red.200' color='black'>
-                    <Text fontSize='sm'>
-                        Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
-                    </Text>
-                </Center>
-            )}
-            <Text py='2'>
-                Contract Address: {contractAddress}
-            </Text>
-            <Text py='2'>
-                Datum Value: {datum}
-            </Text>
-            <Text py='2'>
-                Datum Hash: {datumHash}
-            </Text>
-            <Center my='2' p='2' bg='green.200' color='black'>
-                Current Faucet Balance: {faucetBalance}
-            </Center>
-            <Center my='2' p='2' bg='green.200' color='black'>
-                This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
-            </Center>
-            <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
-            {txLoading ? (
-                <Center>
-                    <Spinner />
-                </Center>
-            ) : (
-                <Center m='2' p='2' bg='purple.200' color='black'>
-                    {successfulTxHash ? (
-                        <Text fontSize='sm'>
-                            Withdrawal Tx Submitted! TxHash: {successfulTxHash}
-                        </Text>
+            {faucetBalance > 0 ? (
+                <Box>
+                    {_contract_utxo.length == 1 ? (
+                        <Center my='3' p='2' bg='green.200' color='black'>
+                            <Text fontSize='sm'>
+                                This is a well-managed Contract Address, with exactly 1 UTxO
+                            </Text>
+                        </Center>
                     ) : (
-                        <Text fontSize='sm'>
-                            Press the button to build and submit an unlocking transaction.
-                        </Text>
+                        <Center my='3' p='2' bg='red.200' color='black'>
+                            <Text fontSize='sm'>
+                                Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
+                            </Text>
+                        </Center>
                     )}
-                </Center>
+                    <Text py='2'>
+                        Contract Address: {contractAddress}
+                    </Text>
+                    <Text py='2'>
+                        Datum Value: {datum}
+                    </Text>
+                    <Text py='2'>
+                        Datum Hash: {datumHash}
+                    </Text>
+                    <Center my='2' p='2' bg='green.200' color='black'>
+                        Current Faucet Balance: {faucetBalance}
+                    </Center>
+                    <Center my='2' p='2' bg='green.200' color='black'>
+                        This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
+                    </Center>
+                    <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
+                    {txLoading ? (
+                        <Center>
+                            <Spinner />
+                        </Center>
+                    ) : (
+                        <Center m='2' p='2' bg='purple.200' color='black'>
+                            {successfulTxHash ? (
+                                <Text fontSize='sm'>
+                                    Withdrawal Tx Submitted! TxHash: {successfulTxHash}
+                                </Text>
+                            ) : (
+                                <Text fontSize='sm'>
+                                    Press the button to build and submit an unlocking transaction.
+                                </Text>
+                            )}
+                        </Center>
+                    )}
+                </Box>
+
+            ) : (
+                <Box>
+                    <Text>There are currently no {faucetTokenName} tokens locked at {contractAddress}</Text>
+                </Box>
             )}
+
+
         </Box>
     );
 }
