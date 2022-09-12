@@ -240,7 +240,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     }
 
     return (
-        <Box m='5' p='5' bg='white' color='black'>
+        <Box width="50%" m='5' p='5' bg='white' color='black' border='1px' borderRadius='lg'>
             <Heading size='lg' py='2'>
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
@@ -263,21 +263,18 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                 Contract Address: {contractAddress}
             </Text>
             <Text py='2'>
-                Datum Value: {datum} Datum Hash: {datumHash}
+                Datum Value: {datum}
             </Text>
-            <Flex direction='row'>
-                <Spacer />
-                <Box my='2' p='2' bg='green.200' color='black'>
-                    Current Faucet Balance: {faucetBalance}
-                </Box>
-                <Spacer />
-                <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
-                <Spacer />
-                <Box my='2' p='2' bg='green.200' color='black'>
-                    This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
-                </Box>
-                <Spacer />
-            </Flex>
+            <Text py='2'>
+                Datum Hash: {datumHash}
+            </Text>
+            <Center my='2' p='2' bg='green.200' color='black'>
+                Current Faucet Balance: {faucetBalance}
+            </Center>
+            <Center my='2' p='2' bg='green.200' color='black'>
+                This Tx will return {tokensBackToFaucet} {faucetTokenName} to the faucet.
+            </Center>
+            <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
             {txLoading ? (
                 <Center>
                     <Spinner />

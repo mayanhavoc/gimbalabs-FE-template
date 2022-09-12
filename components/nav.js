@@ -16,11 +16,11 @@ export default function Nav() {
       </Text>
       <Spacer />
       <Text fontWeight='900'>
-        <Link href="/transactions">Module 301: Basic Transactions</Link>
+        <Link href="/module301-faucets">Module 301: PPBL Faucet Mini-Project</Link>
       </Text>
       <Spacer />
       <Text fontWeight='900'>
-        <Link href="/module301-faucets">Module 301: PPBL Faucet Mini-Project</Link>
+        <Link href="/transactions">Module 301/302: Basic Transactions</Link>
       </Text>
       <Spacer />
       <Text fontWeight='900'>

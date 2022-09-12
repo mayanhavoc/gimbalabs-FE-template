@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
-    Box, Button, Center, Heading, Spinner, Text,
+    Box, Button, Center, Heading, Spinner, Text, Link
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
 import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
@@ -228,49 +228,75 @@ export default function FaucetUnlockingComponent() {
     }
 
     return (
-        <Box my='5' p='5' bg='purple.900' color='white'>
-            <Heading size='md' py='2'>
-                Pre-Production PPBL Faucet Example
+        <Box my='5' p='5' bg='purple.50' border='1px' borderRadius='lg' fontSize='lg'>
+            <Heading size='3xl' py='2'>
+                Example Faucet Unlocking Transaction
             </Heading>
-            <Heading size='lg'>
-                Unlock {withdrawalAmount} {faucetTokenName} Tokens from Faucet
-            </Heading>
-            <Text py='2'>
-                Here is an array of UTxOs at the Contract Address: {JSON.stringify(_contract_utxo)}
-            </Text>
-            <Text py='2'>
-                If we are managing UTxOs correctly, then there should be just one listed here. (Length of array: {_contract_utxo.length})
-            </Text>
-            <Text py='2'>
-                Datum Hash: {datumHash}
-            </Text>
-            <Box my='2' p='2' bg='purple.200' color='black'>
-                Current Faucet Balance: {faucetBalance} (The Tx should return {tokensBackToFaucet} tgimbals to the faucet.)
+            <Box w='60%' mx='auto' py='5'>
+                <Heading size='md'>
+                    What this Component does:
+                </Heading>
+                <Text py='2'>
+                    If the connected wallet holds at least one PPBLSummer2022 token, this Component will build, sign, and submit a Transaction that Unlocks {withdrawalAmount} {faucetTokenName} Tokens from the PPBL Faucet at Contract Address {contractAddress}
+                </Text>
+                <Text py='2'>
+                    What you are looking at now is a demo-version of the Faucet Component (/components/faucets/FaucetUnlockingComponent.tsx). This version has hard-coded parameters, a lot of extra explanations, and limited styling. There is another version called FaucetUnlockingComponentWithMetadata.tsx that pulls parameters dynamically from the blockchain, and is a bit more stream-lined.
+                </Text>
             </Box>
-            <Text py='2'>
-                Contract Address: {contractAddress}
-            </Text>
-            <Text py='2'>
-                Your PKH: {connectedPkh}
-            </Text>
-            <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock those Tokens!</Button>
-            {txLoading ? (
-                <Center>
-                    <Spinner />
-                </Center>
-            ) : (
-                <Box mt='2' p='2' bg='purple.200' color='black'>
-                    {successfulTxHash ? (
-                        <Text>
-                            {successfulTxHash}
-                        </Text>
-                    ) : (
-                        <Text>
-                            Try it!
-                        </Text>
-                    )}
+            <Box p='5' bg='white'>
+                <Heading size='md' py='2'>
+                    Here is an array of UTxOs at the Contract Address:
+                </Heading>
+                <pre>
+                    <code className="language-js">{JSON.stringify(_contract_utxo, null, 2)}</code>
+                </pre>
+                <Text py='2'>
+                    Two steps take place in <strong>/src/components/faucets/FaucetLockingComponent.tsx</strong>. First a GraphQL query is used to get data from the Contract Address. Then, that data is used to populate a <strong>UTxO</strong> object, <Link href="https://github.com/MartifyLabs/mesh/blob/main/packages/module/src/types/index.ts">as defined in Mesh</Link>.
+                </Text>
+                <Heading size='md'>
+                    About Contract UTxOs:
+                </Heading>
+                <Text py='2'>
+                    If we are managing UTxOs correctly, then there should be just one listed here. (Length of this array: {_contract_utxo.length})
+                </Text>
+            </Box>
+            <Box w='60%' mx='auto' py='5'>
+                <Heading size='md'>
+                    Note that in a DApp for a mainstream audience, we will want to use the raw data above in the UI. For example, we could display the number of tokens in a Box:
+                </Heading>
+                <Box my='5' p='5' bg='green.100' border='1px' borderRadius='xl'>
+                    <Text py='2'>
+                        Current Faucet Balance: {faucetBalance} (The Tx should return {tokensBackToFaucet} tgimbals to the faucet.)
+                    </Text>
                 </Box>
-            )}
+                <Heading size='md' py='2'>
+                    Other Helpful Stuff:
+                </Heading>
+                <Text py='2'>
+                    Datum Hash to be used in the unlocking transaction: {datumHash} - does this match what you expect?
+                </Text>
+                <Text py='2'>
+                    Your Public Key Hash (PKH): {connectedPkh}
+                </Text>
+                <Button my='2' colorScheme='purple' onClick={handleUnLockTokens}>Unlock {withdrawalAmount} {faucetTokenName} Tokens!</Button>
+                {txLoading ? (
+                    <Center>
+                        <Spinner />
+                    </Center>
+                ) : (
+                    <Box mt='2' p='2' bg='purple.200' color='black'>
+                        {successfulTxHash ? (
+                            <Text>
+                                Transaction Status: Submitted! TxHash: {successfulTxHash}
+                            </Text>
+                        ) : (
+                            <Text>
+                                Transaction Status: Not Started
+                            </Text>
+                        )}
+                    </Box>
+                )}
+            </Box>
         </Box>
     );
 }

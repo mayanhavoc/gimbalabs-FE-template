@@ -15,8 +15,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fontsource/comfortaa": "^4.5.9",
-    "@fontsource/courier-prime": "^4.5.8",
-    "@fontsource/fira-mono": "^4.5.9",
     "@fontsource/work-sans": "^4.5.12",
     "@martifylabs/mesh": "^0.0.8-beta.10",
     "formik": "^2.2.9",

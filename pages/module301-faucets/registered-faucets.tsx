@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import {
-    Box, Heading, Text, Spinner, Center
+    Box, Heading, Text, Spinner, Center, Flex, Spacer, Link
 } from '@chakra-ui/react'
 
 import { FaucetMetadata } from "../../cardano/Types";
 import FaucetUnlockingComponentWithMetadata from "../../components/faucets/FaucetUnlockingComponentWithMetadata";
+import FaucetLockingComponentWithMetadata from "../../components/faucets/FaucetLockingComponentWithMetadata";
 
 // 1. Consume data from metadata query
 // 2. Use that data to populate placeholder component
@@ -68,20 +69,27 @@ export default function RegisteredFaucets() {
     }
 
     return (
-        <Box p='2' bg='black' color='white'>
-            <Heading size='lg' py='3'>
+        <Box>
+            <Heading size='3xl' py='3'>
                 List of PPBL Faucets
             </Heading>
             <Heading size='md' py='1'>
-                Add Yours! Look at Module 301 on Canvas.
+                Add Yours! <Link href="https://gimbalabs.instructure.com/courses/26/pages/301-project-overview">Check out Module 301 on Canvas</Link>.
             </Heading>
 
             {metadataResults.length > 0 ? (
-                <Text>
+                <Flex direction='column'>
                     {metadataResults.map((faucetDetails: FaucetMetadata) =>
-                        <FaucetUnlockingComponentWithMetadata faucetInstance={faucetDetails} />
+                        <Box my='5' bgGradient='linear(to-tr, blue.400, orange.100)' border='1px' borderRadius='lg'>
+                            <Heading pt='4' pr='4' textAlign='right'>{faucetDetails.tokenName} tokens</Heading>
+                            <Flex direction='row' my='2'>
+                                <FaucetUnlockingComponentWithMetadata faucetInstance={faucetDetails} />
+                                <Spacer />
+                                <FaucetLockingComponentWithMetadata faucetInstance={faucetDetails} />
+                            </Flex>
+                        </Box>
                     )}
-                </Text>
+                </Flex>
             ) : (
                 <Text>
                     No Data!

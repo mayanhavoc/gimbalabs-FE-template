@@ -4,8 +4,6 @@ import { ApolloProvider } from '@apollo/client'
 import client from '../apollo-client'
 import { WalletProvider } from '../contexts/wallet';
 
-import '@fontsource/fira-mono'
-import '@fontsource/courier-prime'
 import '@fontsource/comfortaa'
 import '@fontsource/work-sans'
 

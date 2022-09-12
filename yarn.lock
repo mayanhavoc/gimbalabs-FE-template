@@ -826,16 +826,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/comfortaa/-/comfortaa-4.5.9.tgz#1af312ebaf9569316866d470259d57478138c568"
   integrity sha512-SyXZ26B7PIzHGCV8RUGSz+j3HRFsuCzYaS7j6oUKqne7NW92zZ2yWn2uuuvSyjwcpKAMqKP16+HfxD92tJ20hA==
 
-"@fontsource/courier-prime@^4.5.8":
-  version "4.5.8"
-  resolved "https://registry.yarnpkg.com/@fontsource/courier-prime/-/courier-prime-4.5.8.tgz#fcb3bc6d141e7e8309d62d70ae496f50f8b4b40d"
-  integrity sha512-gc4xaXSOPdehfCdO1YeN06leunFdUyjPRC0jAX0QIF3b+rIpHF1pMmFqug6hBpH8eWg0hvehPmyuycVC7olaQw==
-
-"@fontsource/fira-mono@^4.5.9":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@fontsource/fira-mono/-/fira-mono-4.5.9.tgz#8ea6473e332ca3ed849d746f5302d7b1daebd210"
-  integrity sha512-DDhkRUjPHwPK/wB7GM/7LzGkcEC5JyTZM93YnFoP2Qfjffq3qX1asnXNqfglgZxXHXVmu3RI8OjRf87I97XCfA==
-
 "@fontsource/work-sans@^4.5.12":
   version "4.5.12"
   resolved "https://registry.yarnpkg.com/@fontsource/work-sans/-/work-sans-4.5.12.tgz#4e68dc559b7d8e76ae2d3c1dafd081fea877e682"

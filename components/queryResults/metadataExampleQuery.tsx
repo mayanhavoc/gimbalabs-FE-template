@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { Box, Heading, Text, Center, Spinner } from "@chakra-ui/react"
+import { Box, Heading, Text, Center, Spinner, Link } from "@chakra-ui/react"
 
 // WITH VARIABLE:
 const QUERY = gql`
@@ -43,13 +43,14 @@ export default function MetadataExampleQuery() {
     };
 
     return (
-        <Box m='5' p='5' bg='#435689' color='#ffffff'>
+        <Box m='5' p='5' bg='purple.100' border='1px' borderRadius='lg'>
             <Heading size='lg' py='3'>
-                Some Metadata Query Results
+                Hello Testnet! Metadata Query Results
             </Heading>
             <Heading size='md' py='1'>
-                This is an example response from querying key {queryThisMetadataKey} on Cardano Testnet
+                This is an example response from querying key {queryThisMetadataKey} on Cardano Pre-Production Testnet
             </Heading>
+            <Text py='2'>You may have completed <Link href="https://gimbalabs.instructure.com/courses/26/assignments/448">Assignment 203 - Hello Testnet!</Link> on the old Testnet. All GraphQL queries in this project are to Pre-Production, but all we need to change to query a different network is the uri in <Link href="https://gitlab.com/gimbalabs/plutus-pbl-summer-2022/ppbl-front-end-template/-/blob/main/apollo-client.ts">apollo-client.ts</Link></Text>
             {data.transactions.map((tx: any | null | undefined) => (
                 <Box my='5' px='2' pt='3' pb='5' bg='white' color='black'>
                     <Text>Tx Hash: <a href={`https://testnet.cardanoscan.io/transaction/${tx.hash}`}>{tx.hash}</a></Text>
