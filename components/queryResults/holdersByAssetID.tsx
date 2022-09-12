@@ -9,6 +9,19 @@ export default function HoldersByAssetID() {
     const [addressList, setAddressList] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
+    // ------------------------------------------------------------------------
+    // Module 302, Mastery Assignment #2
+    //
+    // Instructions:
+    // Below, see how the Koios API is used to get a list of all Addresses
+    // that hold PPBLSummer2022 tokens. All it takes is a single URL --
+    // this is really helpful!
+    //
+    // Our problem is that Koios is not yet available on Pre-Production.
+    // Your Assignment is to write a GraphQL Query that achieves the same
+    // result as this Koios Query.
+    // ------------------------------------------------------------------------
+
     useEffect(() => {
         setLoading(true)
         fetch('https://testnet.koios.rest/api/v0/asset_address_list?_asset_policy=1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f9&_asset_name=5050424c53756d6d657232303232')
@@ -26,7 +39,11 @@ export default function HoldersByAssetID() {
             </Heading>
             <Box width='50%' mx='auto' mb='5'>
                 <Text py='2' fontSize='lg'>
-                    Koios makes it really easy to get a list of addresses that hold a token. There is really no reason not to use it! However, there is not yet a public instance of Koios running for Pre-Production (you can create your own with Dandelion, just like we did for GraphQL...are you interested? We will save that exploration for sometime soon!).</Text>
+                    Koios makes it really easy to get a list of addresses that hold a token. There is really no reason not to use it!
+                </Text>
+                <Text py='2' fontSize='lg'>
+                    However, there is not yet a public instance of Koios running for Pre-Production (unless you create your own with Dandelion - which is a great idea - but we will save that exploration for sometime soon!).
+                </Text>
                 <Text py='2' fontSize='lg'>
                     So here is your challenge. Can you re-create the data shown in this component using GraphQL instead of Koios? This is the Level 2 Mastery Assignmnet for <Link href="https://gimbalabs.instructure.com/courses/26/assignments/466" color="orange.700">Module 302 - Querying the Blockchain</Link>
                 </Text>

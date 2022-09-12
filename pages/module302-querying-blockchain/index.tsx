@@ -18,7 +18,7 @@ const Module302: NextPage = () => {
                 </GridItem>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
                     <Text p='3'>
-                        <Link href="/templates/ssr">Mastery Level 2</Link>
+                        <Link href="/module302-querying-blockchain/302-mastery-level-2">Mastery Level 2</Link>
                     </Text>
                 </GridItem>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
