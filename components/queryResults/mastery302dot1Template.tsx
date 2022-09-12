@@ -35,6 +35,7 @@ export default function Mastery302dot1Template() {
     // ------------------------------------------------------------------------
     // Module 302, Mastery Assignment #1
     // STEP 1: Change this policyId to match a token that you minted:
+    // Note: This Query will work only with tokens minted on Pre-Production.
     // ------------------------------------------------------------------------
     const policyId = "748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c60"
 
