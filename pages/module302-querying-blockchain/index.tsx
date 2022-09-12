@@ -13,7 +13,7 @@ const Module302: NextPage = () => {
             <Grid templateColumns='repeat(2, 1fr)' gap='3' pt='5'>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
                     <Text p='3'>
-                        <Link href="/templates/isr">Mastery Level 1</Link>
+                        <Link href="/module302-querying-blockchain/302-mastery-level-1">Mastery Level 1</Link>
                     </Text>
                 </GridItem>
                 <GridItem bg='purple.100' _hover={{ bg: 'purple.800', color: 'white' }}>
