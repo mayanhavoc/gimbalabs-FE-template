@@ -64,7 +64,7 @@ export default function Mastery302dot1Template() {
     return (
         <Box m="5" p="5" bg="green.100" border='1px' borderRadius='lg'>
             <Heading py='2'>This is a Template for Mastery Assignment 302.1</Heading>
-            <Heading size='md' py='5'>Here are the raw results of a GraphQL Query:</Heading>
+            <Heading size='md' py='5'>Here are the raw results of a GraphQL Query. What story does this data tell?</Heading>
             {/* ------------------------------------------------------------------------
                 Module 302, Mastery Assignment #1
                 STEP 2: Replace pre-formatted JSON data with a component that
