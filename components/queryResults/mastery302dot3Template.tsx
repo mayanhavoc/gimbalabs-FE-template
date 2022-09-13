@@ -68,7 +68,7 @@ export default function Mastery302dot3Template() {
             <Text p='1' fontWeight='bold'>What was the transaction with output(s) to {queryAddress}?</Text>
             <Text p='1'>It was Tx: {data.transactions[0].hash}</Text>
             <Text p='1'>Date: {data.transactions[0].includedAt}</Text>
-            <Text p='1'>Number Inputs: {data.transactions[0].inputs.length} --> Number Outputs: {data.transactions[0].outputs.length}</Text>
+            <Text p='1'>Number Inputs: {data.transactions[0].inputs.length} -- Number Outputs: {data.transactions[0].outputs.length}</Text>
         </Box>
     )
 }

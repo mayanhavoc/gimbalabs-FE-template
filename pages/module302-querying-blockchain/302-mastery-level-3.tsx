@@ -1,5 +1,6 @@
 import { Box, Heading, Text, Grid, GridItem, Link as ChakraLink } from '@chakra-ui/react'
 import type { NextPage } from "next";
+import Mastery302dot3James from '../../components/queryResults/mastery302dot3James';
 import Mastery302dot3Template from '../../components/queryResults/mastery302dot3Template';
 
 const Module302MasteryLevel3: NextPage = () => {
@@ -15,6 +16,7 @@ const Module302MasteryLevel3: NextPage = () => {
                 <Mastery302dot3Template />
                 <Mastery302dot3Template />
                 <Mastery302dot3Template />
+                <Mastery302dot3James />
             </Grid>
 
         </Box>
