@@ -52,7 +52,9 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     const tokenHex: string = stringToHex(faucetTokenName);
     const faucetAsset: string = faucetAssetPolicyId + tokenHex;
     const withdrawalAmount = faucetInstance.withdrawalAmount;
-    const plutusScript: string = faucetList.filter(asset => asset.address == contractAddress)[0].script;
+    // const plutusScript: string = faucetList.filter(asset => asset.address == contractAddress)[0].script;
+    // from @IronicMango
+    const [plutusScript, setPlutusScript] = useState<string>("")
 
     let _contract_utxo: UTxO[] = []
 
@@ -85,6 +87,14 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
             setConnectedPkh(result)
         }
     }, [walletConnected])
+
+    // from @IronicMango
+    useEffect(() => {
+        if (faucetList.filter(asset => asset.address == contractAddress)[0] != undefined) {
+            const result = faucetList.filter(asset => asset.address == contractAddress)[0].script
+            setPlutusScript(result)
+        }
+    })
 
 
     // Todo: Check against registered metadata to get quantity
