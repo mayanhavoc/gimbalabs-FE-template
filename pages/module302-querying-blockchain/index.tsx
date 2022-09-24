@@ -68,7 +68,7 @@ const Module302: NextPage = () => {
 
             <Heading py='5'>Some (Not-So-Pretty) Examples</Heading>
             <MetadataExampleQuery />
-            <HoldersByAssetID />
+            {/* <HoldersByAssetID /> */}
             <HoldersByTx />
         </Box>
 

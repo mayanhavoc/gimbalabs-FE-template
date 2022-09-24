@@ -1,7 +1,7 @@
 import { Box, Heading, Text, Grid, GridItem, Link as ChakraLink } from '@chakra-ui/react'
 import type { NextPage } from "next";
-import Mastery302dot3James from '../../components/queryResults/mastery302dot3James';
 import Mastery302dot3Template from '../../components/queryResults/mastery302dot3Template';
+import Mastery302dot3Sourabh from '../../components/queryResults/mastery302dot3Sourabh';
 
 const Module302MasteryLevel3: NextPage = () => {
     return (
@@ -13,10 +13,7 @@ const Module302MasteryLevel3: NextPage = () => {
             <Text pt='5'>To help you get the idea for where we are going, the same Component is repeated four times below. When PPBL students start to contribute new Components, this page will be updated to show one of each.</Text>
             <Grid pt='5' templateColumns='repeat(2, 1fr)' gap='5'>
                 <Mastery302dot3Template />
-                <Mastery302dot3Template />
-                <Mastery302dot3Template />
-                <Mastery302dot3Template />
-                <Mastery302dot3James />
+                <Mastery302dot3Sourabh />
             </Grid>
 
         </Box>
