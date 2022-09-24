@@ -1,15 +1,13 @@
 // Imports:
 // You may not use all of these, and you may need to add a few!
 import { useQuery, gql } from "@apollo/client";
-import { FaucetMetadata } from "../../cardano/Types";
 import { useState } from "react";
 import {
-    Box, Heading, Text, Input, FormControl, Button, Center, Spinner, Link, FormLabel, Select, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper
+    Box, Heading, Text, Input, FormControl, Button, Center, Spinner, Link, Select
 } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import useWallet from "../../contexts/wallet";
 import { Transaction } from '@martifylabs/mesh'
-import type { UTxO, Asset } from "@martifylabs/mesh";
 import { stringToHex } from "../../cardano/utils";
 
 const QUERY = gql`
@@ -31,7 +29,6 @@ const QUERY = gql`
 
 
 export default function TransactionSourabh() {
-    // These will come in handy:
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
     const [loading, setLoading] = useState(false);
     const { walletConnected, wallet } = useWallet();
@@ -42,7 +39,7 @@ export default function TransactionSourabh() {
             tokenName: '',
             tokenAmount: ''
         },
-        onSubmit: values => {
+        onSubmit: _ => {
             alert("Success!");
         },
     });
@@ -59,8 +56,6 @@ export default function TransactionSourabh() {
                 alert("Token amount must be a positive integer")
             }
             else {
-                // let assets: Asset[] = [];
-                // assets.push
                 const tx = new Transaction({ initiator: wallet }).sendAssets(
                     formik.values.recipientAddress,
                     [{
@@ -90,6 +85,7 @@ export default function TransactionSourabh() {
         }
     }
 
+    // Getting registered faucet tokens.
     const queryThisMetadataKey: string = "1618033988"
     let registeredFaucetTokens: any[] = []
 
