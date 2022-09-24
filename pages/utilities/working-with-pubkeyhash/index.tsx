@@ -18,7 +18,7 @@ import { resolveKeyHash } from "@martifylabs/mesh"
         <Text py='2'>For certain transactions, we must derive the PubKeyHash of one or more parties to a transaction. Fortunately, Mesh makes this easy!</Text>
         <Text py='2'>Here is an Address: {someAddress}</Text>
         <Text py='2'>Here is the PKH of that address: {pubKeyHashFromAddress}</Text>
-        <Text py='2'>The address is hardcoded into <ChakraLink href="">/pages/utilities/working-with-pubkeyhash/index.tsx</ChakraLink></Text>
+        <Text py='2'>The address is hardcoded into <ChakraLink href="https://gitlab.com/gimbalabs/plutus-pbl-summer-2022/ppbl-front-end-template/-/blob/main/pages/utilities/working-with-pubkeyhash/index.tsx">/pages/utilities/working-with-pubkeyhash/index.tsx</ChakraLink></Text>
         <Heading py='5' size='md'>
             Why Does this Matter?
         </Heading>
