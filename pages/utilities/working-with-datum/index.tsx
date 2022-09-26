@@ -3,21 +3,21 @@ import {
   } from '@chakra-ui/react'
   import { useEffect, useState } from "react";
   import type { NextPage } from "next";
-  
+import DatumHashStudyComponent from '../../../components/datumStudy/DatumHashStudyComponent';
+
   const WorkingWithDatumPage: NextPage = () => {
-  
-  
+
+
     return (
       <Box>
         <Heading>
             Working with Datum
         </Heading>
-        <Heading py='2'>Coming Monday!</Heading>
+        <DatumHashStudyComponent />
       </Box>
-  
-  
+
+
     )
   }
-  
+
   export default WorkingWithDatumPage
-  
