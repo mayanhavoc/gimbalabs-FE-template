@@ -47,13 +47,6 @@ export default function Mastery302dot3Template() {
     var smartHour = ""
     var smartMinute = ""
 
-    // const { data, loading, error } = useQuery(QUERY, {
-    //     variables: {
-    //         Qaddress: queryAddress
-    //     }
-    // });
-
-    // EXAMPLE WITHOUT VARIABLE
     const { data, loading, error } = useQuery(QUERY);
 
     if (loading) {
@@ -115,16 +108,12 @@ export default function Mastery302dot3Template() {
                 <Heading py='2' size='md'>Ironic Mango Mastery Assignment 302.3</Heading>
                 <Text p='1' fontWeight='bold'>Current Epoch: {epochNum}</Text>
                 <Text p='1'>There have been {totalTXNum} transactions, generating {totalFees} lovelace of fees.</Text>
-                <Box p="3" bg="purple.500" border='1px' borderRadius='lg' >
+                <Box p="3" bg="purple.500" border='1px' borderRadius
+                ='lg' >
                     <Text p='1' color='white'fontWeight={'bold'} align='center'>{days} {smartDay}, {hours} {smartHour}, and {minutes} {smartMinute} remaining </Text>
                 </Box>
             </Box>
         )
     }
-
-
-    // const queryAddress = "addr_test1wpenjjl2ea22r0vlcm9m3hy9heafwpt3grmty0qfx4r0nrglkg0pk"
-
-    // EXAMPLE WITH VARIABLE
 
 }
