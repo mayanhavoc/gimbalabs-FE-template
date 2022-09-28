@@ -850,10 +850,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@martifylabs/mesh@^0.0.8-beta.10":
-  version "0.0.8-beta.10"
-  resolved "https://registry.npmjs.org/@martifylabs/mesh/-/mesh-0.0.8-beta.10.tgz"
-  integrity sha512-xRwz3/ymoqsw5hrRVUKSKydITm4tjNwC46nHsoJC4Fd64RoNfIF0qZ35T5FYNhMX9ygQ4FCpHC9BqjyAv02rGA==
+"@martifylabs/mesh@^1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@martifylabs/mesh/-/mesh-1.0.0-beta.1.tgz#b28fedc0c5fa6d39ca6b2811f0cbfc7261eca899"
+  integrity sha512-beCthLXYvwJVqHiVqPn6jQAcLuPWq3Ikh46zeDW8/VBZ0jJPUJCEhTJZ14nSSB/Z/0pZFA/bYpG60NX2hdheJg==
   dependencies:
     "@emurgo/cardano-message-signing-browser" "1.0.1"
     "@emurgo/cardano-message-signing-nodejs" "1.0.1"
