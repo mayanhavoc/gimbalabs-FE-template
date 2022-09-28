@@ -3,6 +3,7 @@
 import {
     Box, Heading, Text, Grid, GridItem
 } from "@chakra-ui/react"
+import TransactionIronicMango from "./transactionIronicMango";
 import TransactionSourabh from "./transactionSourabh";
 import TransactionTemplate from "./transactionTemplate";
 
@@ -22,6 +23,9 @@ export default function StudentContributions() {
             </GridItem>
             <GridItem>
                 <TransactionSourabh />
+            </GridItem>
+            <GridItem>
+                <TransactionIronicMango />
             </GridItem>
         </Grid>
     );

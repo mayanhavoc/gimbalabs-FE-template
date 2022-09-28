@@ -2,6 +2,7 @@ import { Box, Heading, Text, Grid, GridItem, Link as ChakraLink } from '@chakra-
 import type { NextPage } from "next";
 import Mastery302dot3Template from '../../components/queryResults/mastery302dot3Template';
 import Mastery302dot3Sourabh from '../../components/queryResults/mastery302dot3Sourabh';
+import Mastery302dot3IronicMango from '../../components/queryResults/mastery302dot3IronicMango';
 
 const Module302MasteryLevel3: NextPage = () => {
     return (
@@ -14,6 +15,7 @@ const Module302MasteryLevel3: NextPage = () => {
             <Grid pt='5' templateColumns='repeat(2, 1fr)' gap='5'>
                 <Mastery302dot3Template />
                 <Mastery302dot3Sourabh />
+                <Mastery302dot3IronicMango />
             </Grid>
 
         </Box>

@@ -40,7 +40,7 @@ function useCopyToClipboard(): [CopiedValue, CopyFn] {
 }
 
 
-export default function TransactionTemplate() {
+export default function TransactionIronicMango() {
     // These will come in handy:
     const { walletConnected, wallet } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)

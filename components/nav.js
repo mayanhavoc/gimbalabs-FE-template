@@ -4,7 +4,7 @@ import { ImBooks } from 'react-icons/im'
 
 export default function Nav() {
   return (
-    <Flex direction="row" w="100%" p="5" bg="gray.300">
+    <Flex direction="row" w="100%" p="5" bg="gray.900" color='white'>
       <Text fontWeight='900' fontSize='xl'>
         <Link href="/">
           <ImBooks />

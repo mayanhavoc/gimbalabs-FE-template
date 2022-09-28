@@ -32,7 +32,7 @@ const QUERY = gql`
     }
 `;
 
-export default function Mastery302dot3Template() {
+export default function Mastery302dot3IronicMango() {
 
     var epochNum = ""
     var totalTXNum = ""
@@ -82,38 +82,38 @@ export default function Mastery302dot3Template() {
         totalTXNum = data.epochs[0].transactionsCount
         totalFees = data.epochs[0].fees
         currentSlot = parseInt(data.epochs[0].blocks[0].slotInEpoch)
-        remainingTime = totalSlots-currentSlot
+        remainingTime = totalSlots - currentSlot
         days = Math.floor(remainingTime / 86400)
-        hours = Math.floor((remainingTime - (days*86400)) / 3600)
-        minutes = Math.floor(((remainingTime - (days*86400)-(hours*3600))/60))
+        hours = Math.floor((remainingTime - (days * 86400)) / 3600)
+        minutes = Math.floor(((remainingTime - (days * 86400) - (hours * 3600)) / 60))
         if (days == 1) {
             smartDay = "Day"
-        }else{
+        } else {
             smartDay = "Days"
         }
         if (hours == 1) {
             smartHour = "Hour"
-        }else{
+        } else {
             smartHour = "Hours"
         }
         if (minutes == 1) {
             smartMinute = "Minute"
-        }else{
+        } else {
             smartMinute = "Minutes"
         }
 
-        
-        return (
-            <Box p="3" bg="orange.100" border='1px' borderRadius='lg'>
-                <Heading py='2' size='md'>Ironic Mango Mastery Assignment 302.3</Heading>
-                <Text p='1' fontWeight='bold'>Current Epoch: {epochNum}</Text>
-                <Text p='1'>There have been {totalTXNum} transactions, generating {totalFees} lovelace of fees.</Text>
-                <Box p="3" bg="purple.500" border='1px' borderRadius
-                ='lg' >
-                    <Text p='1' color='white'fontWeight={'bold'} align='center'>{days} {smartDay}, {hours} {smartHour}, and {minutes} {smartMinute} remaining </Text>
-                </Box>
-            </Box>
-        )
+
     }
+    return (
+        <Box p="3" bg="orange.100" border='1px' borderRadius='lg'>
+            <Heading py='2' size='md'>Ironic Mango Mastery Assignment 302.3</Heading>
+            <Text p='1' fontWeight='bold'>Current Epoch: {epochNum}</Text>
+            <Text p='1'>There have been {totalTXNum} transactions, generating {totalFees} lovelace of fees.</Text>
+            <Box p="3" bg="purple.500" border='1px' borderRadius
+                ='lg' >
+                <Text p='1' color='white' fontWeight={'bold'} align='center'>{days} {smartDay}, {hours} {smartHour}, and {minutes} {smartMinute} remaining </Text>
+            </Box>
+        </Box>
+    )
 
 }
