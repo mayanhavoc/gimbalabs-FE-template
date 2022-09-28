@@ -82,12 +82,21 @@ export default function TransactionTemplate() {
                 const usedAddress = await wallet.getUsedAddresses();
                 const address = usedAddress[0];
                 const forgingScript: string = ForgeScript.withOneSignature(address);
-                console.log(address)
 
+                // For handling IPFS links longer than 64 chars
+                const urlArr: string[] = []
+                let q = 0                
+                if (formik.values.imageURL.length > 64) {
+                    while (formik.values.imageURL.substring(q).length > 64) {
+                        urlArr.push(formik.values.imageURL.substring(q, 64));
+                        q = q + 64;
+                    }
+                }
+                urlArr.push(formik.values.imageURL.substring(q));
 
                 const assetMetadata1: AssetMetadata = {
                     "name": formik.values.NFTName,
-                    "image": formik.values.imageURL,
+                    "image": urlArr,
                     "mediaType": formik.values.imageType,
                     "description": formik.values.NFTDescription
                 };
