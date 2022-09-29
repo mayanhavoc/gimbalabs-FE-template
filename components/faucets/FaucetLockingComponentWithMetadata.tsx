@@ -5,7 +5,7 @@ import {
 } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import useWallet from "../../contexts/wallet";
-import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
+import { Transaction, resolveDataHash, resolvePaymentKeyHash} from '@martifylabs/mesh'
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 import { faucetList } from "../../cardano/plutus/ppbl-preprod-faucet-list"
 import { FaucetMetadata } from "../../cardano/Types";
@@ -142,7 +142,7 @@ const FaucetLockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance })
                 <Input mb='3' bg='white' id="numTokensToLock" name="numTokensToLock" onChange={formik.handleChange} value={formik.values.numTokensToLock} placeholder="Enter number of tokens" />
                 <Button colorScheme='purple' onClick={handleLockTokens}>Lock {formik.values.numTokensToLock} {faucetTokenName}</Button>
             </FormControl>
-            
+
             {loading ? (
                 <Center>
                     <Spinner />

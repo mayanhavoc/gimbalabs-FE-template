@@ -4,7 +4,7 @@ import {
     Box, Button, Center, Flex, Heading, Spacer, Spinner, Text,
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
-import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
+import { Transaction, resolveDataHash, resolvePaymentKeyHash } from '@martifylabs/mesh'
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 // Show how to use these type to check against 3rd party query
 // Suggested Exploration + Doc-Writing: Review other Types
@@ -83,7 +83,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
 
     useEffect(() => {
         if (walletConnected) {
-            const result = resolveKeyHash(connectedAddress)
+            const result = resolvePaymentKeyHash(connectedAddress)
             setConnectedPkh(result)
         }
     }, [walletConnected])
@@ -100,20 +100,12 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     // Todo: Check against registered metadata to get quantity
     const assetsToSender: Asset[] = [
         {
-            unit: "lovelace",
-            quantity: "2000000"
-        },
-        {
             unit: faucetAsset,
             quantity: withdrawalAmount.toString()
         }
     ]
 
     const accessTokenToSender: Asset[] = [
-        {
-            unit: "lovelace",
-            quantity: "2000000"
-        },
         {
             unit: '748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c605050424c53756d6d657232303232',
             quantity: '1'
@@ -122,10 +114,6 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
 
     // Todo: this quantity will also a require a dynamic query
     const assetsToContract: Asset[] = [
-        {
-            unit: "lovelace",
-            quantity: "2000000"
-        },
         {
             unit: faucetAsset,
             quantity: tokensBackToFaucet.toString()
@@ -149,29 +137,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                     console.log("Build a transaction.")
                     console.log("Connected", connectedAddress)
                     console.log("Contract", contractAddress)
-                    const tx = new Transaction({
-                        initiator: wallet, parameters: {
-                            epoch: 0,
-                            coinsPerUTxOSize: '34482',
-                            priceMem: 0.0577,
-                            priceStep: 0.0000721,
-                            minFeeA: 44,
-                            minFeeB: 155381,
-                            keyDeposit: '2000000',
-                            maxTxSize: 16384,
-                            maxValSize: '5000',
-                            poolDeposit: '500000000',
-                            maxCollateralInputs: 3,
-                            maxBlockSize: 65536,
-                            collateralPercent: 150,
-                            maxBlockHeaderSize: 1100,
-                            minPoolCost: '0',
-                            maxTxExMem: '10000000',
-                            maxTxExSteps: '10000000000',
-                            maxBlockExMem: '50000000',
-                            maxBlockExSteps: '40000000000',
-                        }, era: "ALONZO"
-                    })
+                    const tx = new Transaction({ initiator: wallet })
                         .redeemValue(
                             plutusScript,
                             _contract_utxo[0],
@@ -276,6 +242,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
             <Heading size='lg' py='2'>
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
+            <Heading>{connectedPkh}</Heading>
             {faucetBalance > 0 ? (
                 <Box>
                     {_contract_utxo.length == 1 ? (

@@ -4,7 +4,7 @@ import {
     Box, Button, Center, Heading, Spinner, Text, Link
 } from "@chakra-ui/react"
 import useWallet from "../../contexts/wallet";
-import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
+import { Transaction, resolveDataHash, resolvePaymentKeyHash } from '@martifylabs/mesh'
 import type { UTxO, Asset, Data, Action } from '@martifylabs/mesh'
 // Show how to use these type to check against 3rd party query
 // Suggested Exploration + Doc-Writing: Review other Types
@@ -68,7 +68,7 @@ export default function FaucetUnlockingComponent() {
 
     useEffect(() => {
         if (walletConnected) {
-            const result = resolveKeyHash(connectedAddress)
+            const result = resolvePaymentKeyHash(connectedAddress)
             setConnectedPkh(result)
         }
     }, [walletConnected])

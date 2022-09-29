@@ -4,7 +4,7 @@ import {
 } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import { FaucetMetadata } from "../../cardano/Types";
-import { Transaction, resolveDataHash, resolveKeyHash } from '@martifylabs/mesh'
+import { Transaction, resolveDataHash, resolvePaymentKeyHash } from '@martifylabs/mesh'
 import useWallet from "../../contexts/wallet";
 
 export default function FaucetMetadataRegistration(props: any) {
@@ -76,8 +76,8 @@ export default function FaucetMetadataRegistration(props: any) {
             <Text py='2' fontSize='lg'>
                 If you do not have access to a Cardano Pre-Production node, you can use this handy form. You will send 1 ada to yourself and pay a tx fee. Fill out this form carefully - when you submit and sign the transaction, your responses will be written immutably on-chain.
             </Text>
-            
-            
+
+
             <Flex direction='row' mt='5'>
                 <FormControl w='30%' my='3'>
                     <FormLabel>Token PolicyId</FormLabel>
