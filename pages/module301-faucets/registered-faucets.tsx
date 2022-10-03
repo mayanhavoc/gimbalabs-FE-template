@@ -79,8 +79,8 @@ export default function RegisteredFaucets() {
 
             {metadataResults.length > 0 ? (
                 <Flex direction='column'>
-                    {metadataResults.map((faucetDetails: FaucetMetadata) =>
-                        <Box my='5' bgGradient='linear(to-tr, blue.400, orange.100)' border='1px' borderRadius='lg'>
+                    {metadataResults.map((faucetDetails: FaucetMetadata, index) =>
+                        <Box key={index} my='5' bgGradient='linear(to-tr, blue.400, orange.100)' border='1px' borderRadius='lg'>
                             <Heading pt='4' pr='4' textAlign='right'>{faucetDetails.tokenName} tokens</Heading>
                             <Flex direction='row' my='2'>
                                 <FaucetUnlockingComponentWithMetadata faucetInstance={faucetDetails} />

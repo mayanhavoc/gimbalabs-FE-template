@@ -16,7 +16,7 @@
     "@emotion/styled": "^11",
     "@fontsource/comfortaa": "^4.5.9",
     "@fontsource/work-sans": "^4.5.12",
-    "@martifylabs/mesh": "^1.0.0-beta.1",
+    "@martifylabs/mesh": "^1.0.0-beta.5",
     "formik": "^2.2.9",
     "framer-motion": "^6",
     "graphql": "^16.5.0",
