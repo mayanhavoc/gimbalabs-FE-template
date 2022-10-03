@@ -149,7 +149,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                     console.log("Contract", contractAddress)
                     console.log("Using Plutus Script", plutusScript)
                     console.log("And Contract UTXO:", _contract_utxo)
-                    const tx = new Transaction({ initiator: wallet, era: "ALONZO" })
+                    const tx = new Transaction({ initiator: wallet })
                         .redeemValue(
                             plutusScript,
                             _contract_utxo[0],
@@ -255,21 +255,22 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
             <Heading size='sm'>Your PKH: {connectedPkh}</Heading>
+            <Heading size='sm'>UTxOs: {data.utxos.length}</Heading>
+            {data.utxos.length == 1 ? (
+                <Center my='3' p='2' bg='green.200' color='black'>
+                    <Text fontSize='sm'>
+                        This is a well-managed Contract Address, with exactly 1 UTxO
+                    </Text>
+                </Center>
+            ) : (
+                <Center my='3' p='2' bg='red.200' color='black'>
+                    <Text fontSize='sm'>
+                        Whoops! This Contract Address has {data.utxos.length} UTxOs, which may lead to some unexpected behavior.
+                    </Text>
+                </Center>
+            )}
             {faucetBalance > 0 ? (
                 <Box>
-                    {_contract_utxo.length == 1 ? (
-                        <Center my='3' p='2' bg='green.200' color='black'>
-                            <Text fontSize='sm'>
-                                This is a well-managed Contract Address, with exactly 1 UTxO
-                            </Text>
-                        </Center>
-                    ) : (
-                        <Center my='3' p='2' bg='red.200' color='black'>
-                            <Text fontSize='sm'>
-                                Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
-                            </Text>
-                        </Center>
-                    )}
                     <Text py='2'>
                         Contract Address: {contractAddress}
                     </Text>
