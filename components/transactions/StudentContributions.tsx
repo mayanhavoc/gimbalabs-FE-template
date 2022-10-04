@@ -4,6 +4,7 @@ import {
     Box, Heading, Text, Grid, GridItem
 } from "@chakra-ui/react"
 import TransactionIronicMango from "./transactionIronicMango";
+import TransactionNelson from "./transactionNelson";
 import TransactionSourabh from "./transactionSourabh";
 import TransactionTemplate from "./transactionTemplate";
 
@@ -26,6 +27,9 @@ export default function StudentContributions() {
             </GridItem>
             <GridItem>
                 <TransactionIronicMango />
+            </GridItem>
+            <GridItem>
+                <TransactionNelson />
             </GridItem>
         </Grid>
     );
