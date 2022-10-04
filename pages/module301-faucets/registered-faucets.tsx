@@ -32,7 +32,10 @@ const QUERY = gql`
 // We can add the Tx Hash for any Faucet registration that is wrong (for whatever reason!)
 // For example usage, see how metadataResults is filtered below.
 const REVOCATIONLIST = [
-    "612771643ecc0ef5c71f1ef3679829b35b000134166c0a3da20b826f4fbb797a"
+    "612771643ecc0ef5c71f1ef3679829b35b000134166c0a3da20b826f4fbb797a",
+    "c97c94b8e0431b2c0eb46e3fd2e178811359a8d4505b5b2dcb517aa118b90ddf",
+    "942f70be8b7c3ec98e76899cf5aef73972b76f082730724fa56b505d25486194",
+    "b5497cd76dd965371a8a1f4fcc74b40a79bc9b938a6d3b84e286a398f2b0f2e8"
 ]
 
 export default function RegisteredFaucets() {
