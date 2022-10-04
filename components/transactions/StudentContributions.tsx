@@ -12,21 +12,21 @@ import TransactionTemplate from "./transactionTemplate";
 export default function StudentContributions() {
 
     return (
-        <Box my='5'>
-            <Heading>
-                PPBL Student Contributions
-            </Heading>
-            <Grid templateColumns='repeat(2, 1fr)' gap='5' mt='10'>
-                <GridItem>
-                    <TransactionTemplate />
-                </GridItem>
-                <GridItem>
-                    <TransactionSourabh />
-                </GridItem>
-                <GridItem>
-                    <TransactionIronicMango />
-                </GridItem>
-            </Grid>
-        </Box>
+        <Grid templateColumns='repeat(4, 1fr)' gap='5' mt='10'>
+            <GridItem colSpan={4} py='5'>
+                <Heading>
+                    PPBL Student Contributions
+                </Heading>
+            </GridItem>
+            <GridItem>
+                <TransactionTemplate />
+            </GridItem>
+            <GridItem>
+                <TransactionSourabh />
+            </GridItem>
+            <GridItem>
+                <TransactionIronicMango />
+            </GridItem>
+        </Grid>
     );
 }

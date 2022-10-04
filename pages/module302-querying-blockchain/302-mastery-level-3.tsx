@@ -4,6 +4,7 @@ import Mastery302dot3Template from '../../components/queryResults/mastery302dot3
 import Mastery302dot3Sourabh from '../../components/queryResults/mastery302dot3Sourabh';
 import Mastery302dot3IronicMango from '../../components/queryResults/mastery302dot3IronicMango';
 import Mastery302dot3Uli from '../../components/queryResults/mastery302dot3Uli';
+import Mastery302dot3nelsonksh from '../../components/queryResults/mastery302dot3nelsonksh';
 
 const Module302MasteryLevel3: NextPage = () => {
     return (
@@ -18,6 +19,7 @@ const Module302MasteryLevel3: NextPage = () => {
                 <Mastery302dot3Sourabh />
                 <Mastery302dot3IronicMango />
                 <Mastery302dot3Uli />
+                <Mastery302dot3nelsonksh />
             </Grid>
 
         </Box>
