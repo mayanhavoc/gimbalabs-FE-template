@@ -8,11 +8,8 @@ import { Transaction } from '@martifylabs/mesh'
 import type { UTxO } from "@martifylabs/mesh";
 
 export default function QuickSendToken() {
-    // Pre-Production
+    // PPBLSummer2022 token on Pre-Production
     const assetId = "748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c605050424c53756d6d657232303232"
-
-    // Legacy Testnet
-    // const assetId = "1309921891e459c7e9acb338d5dae18f98d1c2f55c1852cd5cf341f95050424c53756d6d657232303232"
 
     const { walletConnected, wallet } = useWallet();
     const [successfulTxHash, setSuccessfulTxHash] = useState<string | null>(null)
@@ -27,7 +24,6 @@ export default function QuickSendToken() {
         },
     });
 
-    // Ask Mesh team about Error reporting
     const handleSend = async () => {
         if (walletConnected) {
             setLoading(true)

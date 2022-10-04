@@ -69,6 +69,7 @@ const TransactionsPage: NextPage = () => {
                     <QuickSendToken />
                 </GridItem>
             </Grid>
+            <Box my='5' border='1px' bg='black' />
             <StudentContributions />
         </Box>
     )

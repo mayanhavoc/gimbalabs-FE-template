@@ -120,14 +120,24 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
         }
     ]
 
+    // This does not work:
+    // const pkhRedeemer: Partial<Action> = {
+    //     data: [connectedPkh]
+    // }
+
+    // This works:
+    // We must include constructor or alternative, because there may be many Redeemers
     const pkhRedeemer: Partial<Action> = {
-        data: [connectedPkh],
-        index: 0
+        data: {
+            alternative: 0,
+            fields: [connectedPkh]
+        }
     }
 
     const handleUnLockTokens = async () => {
 
         if (walletConnected) {
+            console.log("Redeemer", pkhRedeemer)
             setTxLoading(true)
             const network = await wallet.getNetworkId()
             if (network == 1) {
@@ -137,12 +147,14 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                     console.log("Build a transaction.")
                     console.log("Connected", connectedAddress)
                     console.log("Contract", contractAddress)
+                    console.log("Using Plutus Script", plutusScript)
+                    console.log("And Contract UTXO:", _contract_utxo)
                     const tx = new Transaction({ initiator: wallet })
                         .redeemValue(
                             plutusScript,
                             _contract_utxo[0],
                             {
-                                datum,
+                                datum: datum,
                                 redeemer: pkhRedeemer
                             },
                         ).sendAssets(
@@ -155,7 +167,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                             contractAddress,
                             assetsToContract,
                             { datum: datum }
-                        );
+                        ).setRequiredSigners([connectedAddress]);
                     console.log("so far so good!")
                     const unsignedTx = await tx.build();
 
@@ -242,22 +254,23 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
             <Heading size='lg' py='2'>
                 Unlock {withdrawalAmount} {faucetTokenName} tokens
             </Heading>
-            <Heading>{connectedPkh}</Heading>
+            <Heading size='sm'>Your PKH: {connectedPkh}</Heading>
+            <Heading size='sm'>UTxOs: {data.utxos.length}</Heading>
+            {data.utxos.length == 1 ? (
+                <Center my='3' p='2' bg='green.200' color='black'>
+                    <Text fontSize='sm'>
+                        This is a well-managed Contract Address, with exactly 1 UTxO
+                    </Text>
+                </Center>
+            ) : (
+                <Center my='3' p='2' bg='red.200' color='black'>
+                    <Text fontSize='sm'>
+                        Whoops! This Contract Address has {data.utxos.length} UTxOs, which may lead to some unexpected behavior.
+                    </Text>
+                </Center>
+            )}
             {faucetBalance > 0 ? (
                 <Box>
-                    {_contract_utxo.length == 1 ? (
-                        <Center my='3' p='2' bg='green.200' color='black'>
-                            <Text fontSize='sm'>
-                                This is a well-managed Contract Address, with exactly 1 UTxO
-                            </Text>
-                        </Center>
-                    ) : (
-                        <Center my='3' p='2' bg='red.200' color='black'>
-                            <Text fontSize='sm'>
-                                Whoops! This Contract Address has {_contract_utxo.length} UTxOs!
-                            </Text>
-                        </Center>
-                    )}
                     <Text py='2'>
                         Contract Address: {contractAddress}
                     </Text>
