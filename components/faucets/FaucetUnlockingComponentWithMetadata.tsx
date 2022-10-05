@@ -138,57 +138,62 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
 
         if (walletConnected) {
             console.log("Redeemer", pkhRedeemer)
-            setTxLoading(true)
-            const network = await wallet.getNetworkId()
-            if (network == 1) {
-                alert("This example works with Preproduction Testnet only.")
-            } else {
-                try {
-                    console.log("Build a transaction.")
-                    console.log("Connected", connectedAddress)
-                    console.log("Contract", contractAddress)
-                    console.log("Using Plutus Script", plutusScript)
-                    console.log("And Contract UTXO:", _contract_utxo)
-                    const tx = new Transaction({ initiator: wallet })
-                        .redeemValue(
-                            plutusScript,
-                            _contract_utxo[0],
-                            {
-                                datum: datum,
-                                redeemer: pkhRedeemer
-                            },
-                        ).sendAssets(
-                            connectedAddress,
-                            assetsToSender
-                        ).sendAssets(
-                            connectedAddress,
-                            accessTokenToSender
-                        ).sendAssets(
-                            contractAddress,
-                            assetsToContract,
-                            { datum: datum }
-                        ).setRequiredSigners([connectedAddress]);
-                    console.log("so far so good!")
-                    const unsignedTx = await tx.build();
+            const policyIds = await wallet.getPolicyIds();
+            if (policyIds.includes("748ee66265a1853c6f068f86622e36b0dda8edfa69c689a7dd232c60")) {
+                setTxLoading(true)
+                const network = await wallet.getNetworkId()
+                if (network == 1) {
+                    alert("This example works with Preproduction Testnet only.")
+                } else {
+                    try {
+                        console.log("Build a transaction.")
+                        console.log("Connected", connectedAddress)
+                        console.log("Contract", contractAddress)
+                        console.log("Using Plutus Script", plutusScript)
+                        console.log("And Contract UTXO:", _contract_utxo)
+                        const tx = new Transaction({ initiator: wallet })
+                            .redeemValue(
+                                plutusScript,
+                                _contract_utxo[0],
+                                {
+                                    datum: datum,
+                                    redeemer: pkhRedeemer
+                                },
+                            ).sendAssets(
+                                connectedAddress,
+                                assetsToSender
+                            ).sendAssets(
+                                connectedAddress,
+                                accessTokenToSender
+                            ).sendAssets(
+                                contractAddress,
+                                assetsToContract,
+                                { datum: datum }
+                            ).setRequiredSigners([connectedAddress]);
+                        console.log("so far so good!")
+                        const unsignedTx = await tx.build();
 
-                    // required-signer is taken care of by Mesh
-                    // try this without PartialSigned true to see what happens.
-                    const signedTx = await wallet.signTx(unsignedTx, true);
-                    // error reporting?
-                    const txHash = await wallet.submitTx(signedTx);
-                    setSuccessfulTxHash(txHash)
-                } catch (error: any) {
-                    if (error.info) {
-                        alert(error.info)
-                        console.log(error)
-                    }
-                    else {
-                        alert(error)
-                        console.log(error)
+                        // required-signer is taken care of by Mesh
+                        // try this without PartialSigned true to see what happens.
+                        const signedTx = await wallet.signTx(unsignedTx, true);
+                        // error reporting?
+                        const txHash = await wallet.submitTx(signedTx);
+                        setSuccessfulTxHash(txHash)
+                    } catch (error: any) {
+                        if (error.info) {
+                            alert(error.info)
+                            console.log(error)
+                        }
+                        else {
+                            alert(error)
+                            console.log(error)
+                        }
                     }
                 }
+                setTxLoading(false)
+            } else {
+                alert("Wallet must contain PPBLSummer2022 token")
             }
-            setTxLoading(false)
         }
         else {
             alert("please connect a wallet")
