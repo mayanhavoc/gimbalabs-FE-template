@@ -1,7 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { MdCastForEducation, MdStar } from "react-icons/md";
 import {
-    Flex, Center, Heading, Text, Box, Link, Badge,Image
+    Flex, Center, Heading, Text, Box, Link, Badge, Image
 } from "@chakra-ui/react";
 
 // ------------------------------------------------------------------------
@@ -25,7 +25,7 @@ import {
             }
         }
     `;*/}
-    const QUERY = gql`
+const QUERY = gql`
     query cardano{
         cardano{
                  currentEpoch{
@@ -37,20 +37,20 @@ import {
                                startedAt
                                lastBlockTime
                            }
-                                
+
                  }
-        
+
        }
     `;
 
-export default function Mastery302dot3Template() {
+export default function Mastery302dot3HugoOjeda() {
 
     //const queryAddress = "addr_test1wpenjjl2ea22r0vlcm9m3hy9heafwpt3grmty0qfx4r0nrglkg0pk"
 
     // EXAMPLE WITH VARIABLE
     const { data, loading, error } = useQuery(QUERY, {
         variables: {
-           //address: queryAddress
+            //address: queryAddress
         }
     });
 
@@ -80,11 +80,11 @@ export default function Mastery302dot3Template() {
     // ------------------------------------------------------------------------
 
     return (
-           
-               <><Box p="5" bg="orange.100" maxW="620px" border='1px'  borderWidth="1px">
-                   <Image borderRadius="md" src="https://ipfs.io/ipfs/bafybeihavfh642746oo7hhiklnldu2zv3agc5d7yax7pakxzoykew6kvme/cardano.png" />
+
+        <><Box p="5" bg="orange.100" maxW="620px" border='1px' borderWidth="1px">
+            <Image borderRadius="md" src="https://ipfs.io/ipfs/bafybeihavfh642746oo7hhiklnldu2zv3agc5d7yax7pakxzoykew6kvme/cardano.png" />
             <Flex align="baseline" mt={2}>
-                
+
                 <Text
                     ml={2}
                     textTransform="uppercase"
@@ -92,45 +92,45 @@ export default function Mastery302dot3Template() {
                     fontWeight="bold"
                     color="pink.800"
                 >
-                <Badge colorScheme="pink">Cardano &bull; Epoch Block transactions</Badge>
-                    
+                    <Badge colorScheme="pink">Cardano &bull; Epoch Block transactions</Badge>
+
                 </Text>
             </Flex>
             <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
                 Mastering Assigment 302.3 by Hugo Ojeda #ingHugo
             </Text>
-           
+
             {/*<Flex mt={2} align="center">*/}
-               {/* <Box as={MdStar} color="orange.400" />*/}
-                <Text px='1' pt='5'  fontSize="sm">
+            {/* <Box as={MdStar} color="orange.400" />*/}
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">Nonce: </Badge>
-                 <b>{data.cardano.currentEpoch.nonce}</b>
-                </Text>
-                <Text px='1' pt='5'  fontSize="sm">
+                <b>{data.cardano.currentEpoch.nonce}</b>
+            </Text>
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">Fees: </Badge>
                 <b> {data.cardano.currentEpoch.fees}</b>
-                </Text>
-                <Text px='1' pt='5'  fontSize="sm">
+            </Text>
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">Output: </Badge>
                 <b>  {data.cardano.currentEpoch.output} </b>
-                </Text>
-                <Text px='1' pt='5'  fontSize="sm">
+            </Text>
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">TransactionsCount: </Badge>
                 <b>{data.cardano.currentEpoch.transactionsCount}</b>
-                </Text>
-                <Text px='1' pt='5'  fontSize="sm">
+            </Text>
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">Started_At: </Badge>
                 <b>  {data.cardano.currentEpoch.startedAt} </b>
-                </Text>
-                <Text px='1' pt='5'  fontSize="sm">
+            </Text>
+            <Text px='1' pt='5' fontSize="sm">
                 <Badge colorScheme="pink">LastBlockTime: </Badge>
                 <b>{data.cardano.currentEpoch.lastBlockTime}</b>
-                </Text>
-               
-                               
+            </Text>
+
+
             {/*</Flex>*/}
-            </Box>
-        {/*
+        </Box>
+            {/*
             <Box p="3" bg="orange.100" border='1px' borderRadius='lg'>
                 <Heading py='2' size='md'>This is a Template for Mastery Assignment 302.3</Heading>
                 <Text p='1' fontWeight='bold'>What was the transaction with output(s) to ?</Text>
