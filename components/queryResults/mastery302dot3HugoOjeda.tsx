@@ -66,7 +66,7 @@ export default function Mastery302dot3Template() {
     if (error) {
         console.error(error);
         return (
-            <Heading size="lg">Error loading data...</Heading>
+            <Heading size="lg"> Error loading data...</Heading>
         );
     };
 
