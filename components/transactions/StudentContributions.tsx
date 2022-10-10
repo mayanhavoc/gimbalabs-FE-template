@@ -6,6 +6,7 @@ import {
 import TransactionIronicMango from "./transactionIronicMango";
 import TransactionSourabh from "./transactionSourabh";
 import TransactionTemplate from "./transactionTemplate";
+import Transaction_IngHugo from "./transaction_IngHugo";
 
 
 
@@ -26,6 +27,9 @@ export default function StudentContributions() {
             </GridItem>
             <GridItem>
                 <TransactionIronicMango />
+            </GridItem>
+            <GridItem>
+                <Transaction_IngHugo />
             </GridItem>
         </Grid>
     );
