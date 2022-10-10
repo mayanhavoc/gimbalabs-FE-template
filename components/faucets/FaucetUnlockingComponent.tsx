@@ -127,27 +127,7 @@ export default function FaucetUnlockingComponent() {
                     console.log("Connected", connectedAddress)
                     console.log("Contract", contractAddress)
                     const tx = new Transaction({
-                        initiator: wallet, parameters: {
-                            epoch: 0,
-                            coinsPerUTxOSize: '34482',
-                            priceMem: 0.0577,
-                            priceStep: 0.0000721,
-                            minFeeA: 44,
-                            minFeeB: 155381,
-                            keyDeposit: '2000000',
-                            maxTxSize: 16384,
-                            maxValSize: '5000',
-                            poolDeposit: '500000000',
-                            maxCollateralInputs: 3,
-                            maxBlockSize: 65536,
-                            collateralPercent: 150,
-                            maxBlockHeaderSize: 1100,
-                            minPoolCost: '0',
-                            maxTxExMem: '10000000',
-                            maxTxExSteps: '10000000000',
-                            maxBlockExMem: '50000000',
-                            maxBlockExSteps: '40000000000',
-                        }, era: "ALONZO"
+                        initiator: wallet
                     })
                         .redeemValue(
                             tgimbal.script,
