@@ -88,6 +88,7 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
         }
     }, [walletConnected])
 
+
     // from @IronicMango
     useEffect(() => {
         if (faucetList.filter(asset => asset.address == contractAddress)[0] != undefined) {
@@ -172,13 +173,20 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
                             ).setRequiredSigners([connectedAddress]);
                         console.log("so far so good!")
                         const unsignedTx = await tx.build();
-
+                        console.log("unsignedTx: ", unsignedTx);        
                         // required-signer is taken care of by Mesh
                         // try this without PartialSigned true to see what happens.
                         const signedTx = await wallet.signTx(unsignedTx, true);
+                        console.log("signedTx: ", signedTx)
                         // error reporting?
-                        const txHash = await wallet.submitTx(signedTx);
-                        setSuccessfulTxHash(txHash)
+                        try {
+                            const txHash = await wallet.submitTx(signedTx);
+                            console.log(txHash);
+                            setSuccessfulTxHash(txHash)
+                        } catch (error) {
+                            console.log("Tx error")
+                            console.error(error.info);
+                        }
                     } catch (error: any) {
                         if (error.info) {
                             alert(error.info)

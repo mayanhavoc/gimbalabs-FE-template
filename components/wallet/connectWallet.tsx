@@ -15,7 +15,6 @@ export default function ConnectWallet() {
         }
         init();
     }, []);
-
     return (
         <>
             {availableWallets

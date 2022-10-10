@@ -18,7 +18,6 @@ export const WalletProvider = ({ children }) => {
   const [walletNameConnected, setWalletNameConnected] = useState<string>('');
   const [connectedAddress, setConnectedAddress] = useState<string>('');
   const [currentNetwork, setCurrentNetwork] = useState<string | undefined>(undefined)
-
   const connectWallet = async (walletName: string) => {
     setConnecting(true);
     const _wallet = await BrowserWallet.enable(walletName);
@@ -28,6 +27,7 @@ export const WalletProvider = ({ children }) => {
       setWallet(_wallet);
       setWalletNameConnected(walletName);
       setWalletConnected(true);
+      // This address should be determined by the address currenly in use in the dapp, not the first one in the wallet
       setConnectedAddress(_address[0]);
       if(_network == 0) setCurrentNetwork("Testnet");
       if(_network == 1) setCurrentNetwork("Mainnet");
