@@ -2,6 +2,7 @@ import { Box, Heading, Text, Grid, GridItem, Link as ChakraLink } from '@chakra-
 import type { NextPage } from "next";
 import HoldersByAssetID from '../../components/queryResults/holdersByAssetID';
 import HoldersByTx from '../../components/queryResults/holdersByTx';
+import KoiosQuery from '../../components/queryResults/koiosQuery';
 
 const Module302MasteryLevel2: NextPage = () => {
     return (
@@ -11,6 +12,7 @@ const Module302MasteryLevel2: NextPage = () => {
                 Module 302, Mastery Assignment #2
                 To get started, open /components/queryResults/holdersByAssetID.tsx
             -----------------------------------------------------------------------*/}
+            <KoiosQuery />
             <HoldersByAssetID />
             <HoldersByTx />
         </Box>
