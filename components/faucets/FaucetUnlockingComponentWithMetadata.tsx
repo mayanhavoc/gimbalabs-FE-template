@@ -219,46 +219,50 @@ const FaucetUnlockingComponentWithMetadata: React.FC<Props> = ({ faucetInstance 
     // To Do: Change this to handle multi utxos - error does not appear. (Can you see why?)
 
     if (data) {
-        if (data.utxos[0].tokens[0]) {
-            const _asset_list: Asset[] = [
-                {
-                    unit: "lovelace",
-                    quantity: data.utxos[0].value
-                },
-                {
-                    unit: faucetAsset,
-                    quantity: data.utxos[0].tokens[0].quantity
-                }
-            ]
-            _contract_utxo = [{
-                input: {
-                    outputIndex: data.utxos[0].index,
-                    txHash: data.utxos[0].txHash
-                },
-                output: {
-                    address: contractAddress,
-                    amount: _asset_list,
-                    dataHash: datumHash
-                }
-            }]
+        if(data.utxos[0]){
+            if (data.utxos[0].tokens[0]) {
+                const _asset_list: Asset[] = [
+                    {
+                        unit: "lovelace",
+                        quantity: data.utxos[0].value
+                    },
+                    {
+                        unit: faucetAsset,
+                        quantity: data.utxos[0].tokens[0].quantity
+                    }
+                ]
+                _contract_utxo = [{
+                    input: {
+                        outputIndex: data.utxos[0].index,
+                        txHash: data.utxos[0].txHash
+                    },
+                    output: {
+                        address: contractAddress,
+                        amount: _asset_list,
+                        dataHash: datumHash
+                    }
+                }]
+            } else {
+                const _asset_list: Asset[] = [
+                    {
+                        unit: "lovelace",
+                        quantity: data.utxos[0].value
+                    }
+                ]
+                _contract_utxo = [{
+                    input: {
+                        outputIndex: data.utxos[0].index,
+                        txHash: data.utxos[0].txHash
+                    },
+                    output: {
+                        address: contractAddress,
+                        amount: _asset_list,
+                        dataHash: datumHash
+                    }
+                }]
+            }
         } else {
-            const _asset_list: Asset[] = [
-                {
-                    unit: "lovelace",
-                    quantity: data.utxos[0].value
-                }
-            ]
-            _contract_utxo = [{
-                input: {
-                    outputIndex: data.utxos[0].index,
-                    txHash: data.utxos[0].txHash
-                },
-                output: {
-                    address: contractAddress,
-                    amount: _asset_list,
-                    dataHash: datumHash
-                }
-            }]
+            _contract_utxo = []
         }
     }
 
